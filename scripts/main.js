@@ -1,4 +1,3 @@
-let dgebid = id => document.getElementById(id);
 let save = () => localStorage.save = game;
 let load = () => game = localStorage.save;
 
