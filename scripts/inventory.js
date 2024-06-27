@@ -1,2 +1,2 @@
-import data from "../data/save.json" assert { type: "json" };
+import data from "../data/save.json" with { type: "json" };
 console.log(data);
