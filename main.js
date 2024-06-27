@@ -9,7 +9,7 @@ let update = () => {
   let curTick = Date.now();
   let delta = curTick - lastTick;
   lastTick = curTick;
-  time += delta / 1000;
+  game.time += delta / 1000;
 }
 
 setInterval(update, 100);
