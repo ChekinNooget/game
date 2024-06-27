@@ -3,6 +3,7 @@ import renderInventory from "./inventory.js";
 let save = () => localStorage.save = game;
 let load = () => game = localStorage.save;
 
+// Will "game" be reassigned somewhere?
 let game = {time: 0};
 
 /* let lastTick = Date.now();
