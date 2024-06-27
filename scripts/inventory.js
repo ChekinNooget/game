@@ -6,6 +6,6 @@ $(document).ready(function () {for (let i = 0; i < data.inventory.length; i++) {
   });
   
 function returnInventoryContent(name, amount){
-    return `<div class="inv-item"><div class="inv-item-name">${name}</div><div class="inv-item-amount">${amount}</div></div>`
+    return `<div class="inv-item"><span class="inv-item-name">${name}</div><span class="inv-item-amount">${amount}</div></div>`
     
 }
