@@ -13,3 +13,5 @@ let update = () => {
 }
 
 setInterval(update, 100);
+
+console.log("1434")
