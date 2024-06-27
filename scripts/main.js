@@ -13,4 +13,8 @@ let update = () => {
 
 setInterval(update, 100);
 
-console.log("1434")
+console.log("1434");
+
+$(document).ready(function () {
+  $("body").append("Script executed.");
+});
