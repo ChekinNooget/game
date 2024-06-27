@@ -2,7 +2,7 @@ import data from "../data/save.json" with { type: "json" };
 console.log(data);
 $(document).ready(function () {for (let i = 0; i < data.inventory.length; i++) {
         // The jQuery equivalent
-        $("#inv-contents").APPEND(returnInventoryContent(data.inventory[i][0], data.inventory[i][1]));
+        $("#inv-contents").append(returnInventoryContent(data.inventory[i][0], data.inventory[i][1]));
     }
   });
   
