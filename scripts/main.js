@@ -11,9 +11,9 @@ let update = () => {
   game.time += delta / 1000;
 }
 
-setInterval(update, 100);
-
-console.log("1434");
+setInterval(update, 100); // every tick is 100 ms
+setInterval(save, 10000); // save every 10 seconds
+console.log("1434"); // i lost the game
 
 $(document).ready(function () {
   $("body").append("Script executed.");
