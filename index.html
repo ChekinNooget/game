@@ -6,8 +6,33 @@
     <meta name="description" content="you just lost">
     <script src="main.js"></script>
     <link rel="stylesheet" href="style.css">
+    <style>
+      .ui-cont1 {
+        display: flex;
+        flex-flow: row nowrap;
+      }
+      .ui-cont2 {
+        display: flex;
+        flex-flow: column nowrap;
+      }
+      .ui-cont3 {
+        display: flex;
+        flex-flow: row nowrap;
+      }
+    </style>
   </head>
   <body>
     <p>hi</p>
+    <div id="ui-cont1" style="background-color:#eeeeee;">
+      <div id="inv">inventory</div>
+      <div id="ui-cont2">
+        <div id="stats">stats</div>
+        <div id="interface">interface</div>
+        <div id="ui-cont3">
+          <div id="actions">actions</div>
+          <div id="map">map</div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
