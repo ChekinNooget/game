@@ -1,6 +1,14 @@
 p {
-  font-family: Verdana, sans-serif
+  font-family: Verdana, sans-serif;
 }
 body {
   font-family: Verdana, sans-serif;
+  background-color: AliceBlue;
+}
+#inv,
+#stats,
+#interface,
+#actions,
+#map {
+  background-color: LightSkyBlue;
 }
