@@ -1,4 +1,4 @@
-import renderInventory from "../inventory.js";
+import renderInventory from "inventory.js";
 
 let save = () => localStorage.save = game;
 let load = () => game = localStorage.save;
