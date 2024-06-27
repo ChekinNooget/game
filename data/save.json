@@ -1,8 +1,8 @@
 {
   "user": "",
   "stats": {},
-  "inventory": {
-    "cookie": 5,
-    "axe": 1
-  }
+  "inventory": [
+    ["cookie", 6],
+    ["axe", 1]
+  ]
 }
