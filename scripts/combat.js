@@ -8,7 +8,7 @@ const Enemy = class {
 
 // cursed syntax lol
 const Fruit = class extends Enemy {
-  static fruitNames = ["apple", "banana", "orange", "pear"]
+  static fruitNames = ["apple", "banana", "orange", "pear", "watermelon", "blueberry", "raspberry", "blackberry", "grape", "cherry"]
   constructor () {
     super(
       fruitNames[Math.floor(Math.random() * fruitNames.length)],
