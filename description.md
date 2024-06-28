@@ -12,3 +12,10 @@ your goal is to buy some type of starting equipment at the grocery store, but wh
 - [ ] Compile the task list
 - [ ] Organize code
 - [x] Fix some bugs
+- [ ] Create a template for notification popup
+- [ ] Outline the resource gathering procedure
+- [ ] Outline the upgrade/crafting procedure
+
+### Resource Gathering
+
+### Upgrades
