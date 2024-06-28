@@ -16,8 +16,8 @@ const initialSave = {
 };
 
 let game = JSON.parse(JSON.stringify(initialSave));;
-let save = () => localStorage.save = JSON.stringify(game);
-let load = () => {
+const save = () => localStorage.save = JSON.stringify(game);
+const load = () => {
   try {
     let str = localStorage.save;
     if (str == "[object Object]" || str == "undefined") throw new Error();
@@ -37,6 +37,17 @@ const update = (() => {
   }
 })();
 
+const log = [];
+const logMessage = (msg, clr) => {
+  log.push({msg: msg, clr: clr});
+  // do sth with ajax idk
+  if (log.length > 20) {
+    log.shift();
+  }
+}
+
+const quack = () => logMessage("quack", "yellow");
+
 $(document).ready(function () {
   /* Starts the delta time, auto-save, and other initial content */
   renderInventory();
@@ -55,7 +66,7 @@ $("#savebtn").click(() => {
 });
 
 $("#exportbtn").click(() => {
-  navigator.clipboard.writeText(JSON.stringify(save));
+  navigator.clipboard.writeText(JSON.stringify(game));
   alert("save copied to clipboard");
 });
 
