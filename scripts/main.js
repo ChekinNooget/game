@@ -1,10 +1,20 @@
 import renderInventory from "./inventory.js";
+import {Enemy, generateEnemy} from "./inventory.js";
 
 /* Initializes the game */
 // Will "game" be reassigned somewhere?
 // yes, in the update function - it was raising an error
 // This should be coming from something else; const object properties can be reassigned
 // yeah, but it was reassigning the entire variable
+const initialSave = {
+  resources: {
+    wood: 0,
+    metal: 0,
+    science: 0
+  },
+  time: 0
+};
+
 let game = {};
 let save = () => localStorage.save = JSON.stringify(game);
 let load = () => {
@@ -13,14 +23,8 @@ let load = () => {
     if (str == "[object Object]") throw new Error();
     game = JSON.parse(str);
   } catch (error) {
-    game = {
-      resources: {
-        wood: 0,
-        metal: 0,
-        science: 0
-      },
-      time: 0
-    };
+    game = JSON.parse(JSON.stringify(initialSave));
+    save();
   }
 };
 
@@ -53,4 +57,13 @@ $("#savebtn").click(() => {
 $("#exportbtn").click(() => {
   navigator.clipboard.writeText(JSON.stringify(save));
   alert("save copied to clipboard");
+});
+
+$("#resetbtn").click(() => {
+  let yes = prompt("are you sure you want to do this? type 'yes' to confirm");
+  if (yes == "yes") {
+    game = JSON.parse(JSON.stringify(initialSave));
+    save();
+    load();
+  }
 });
