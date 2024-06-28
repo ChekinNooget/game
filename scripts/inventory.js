@@ -3,11 +3,14 @@ import data from "../data/save.json" with {type: "json"};
 console.log(data);
 
 function returnInventoryContent(name, amount){
-    return `<div class="inv-item"><span class="inv-item-name">${name.toUpperCase()} - </span><span class="inv-item-amount">${amount}</span></div>`;
+    // Gotta be careful with these... 
+    return `<div class="inv-item"><span class="inv-item-name">${name.toUpperCase().replace(/[^\w]+/g, "")} - </span><span class="inv-item-amount">${(typeof amount === "number") ? amount : 0}</span></div>`;
 }
 
 export default function renderInventory(){
+    let newHTML = "";
     data.inventory.forEach((item) => {
-        $("#inv-contents").append(returnInventoryContent(item[0], item[1]));
+        newHTML += returnInventoryContent(item[0], item[1]);
     });
+    $("#inv-contents").append(newHTML);
 }
