@@ -49,6 +49,6 @@ $("#savebtn").click(() => {
 });
 
 $("#exportbtn").click(() => {
-  navigator.clipboard.writeText(JSON.stringify);
+  navigator.clipboard.writeText(JSON.stringify(save));
   alert("save copied to clipboard");
 });
