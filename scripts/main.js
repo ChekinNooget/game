@@ -1,10 +1,18 @@
 import renderInventory from "./inventory.js";
 
 let save = () => localStorage.save = game;
-let load = () => game = localStorage.save;
+let load = () => game = JSON.parse(localStorage.save);
 
 // Will "game" be reassigned somewhere?
-let game = {time: 0};
+// yes, in the update function - it was raising an error
+let game = {
+  resources: {
+    wood: 0,
+    metal: 0,
+    science: 0
+  },
+  time: 0
+};
 
 /* let lastTick = Date.now();
 let update = () => {
@@ -27,3 +35,8 @@ $(document).ready(function () {
   renderInventory();
   load();
 });
+
+$("#savebtn").onclick = () => {
+  save();
+  alert("saved"); // change this later to a popup that doesn't require user interaction
+};
