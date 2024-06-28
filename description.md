@@ -9,6 +9,6 @@ after that, the game tells you there is a grocery shop 20 meters from your door
 your goal is to buy some type of starting equipment at the grocery store, but while buying stuff you will be attacked by some fruits (invoking juice's idea from earlier)
 
 ### Tasks
-- [] Compile the task list
-- [] Organize code
-- [] Fix some bugs
+- [x] Compile the task list
+- [x] Organize code
+- [x] Fix some bugs
