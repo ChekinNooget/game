@@ -1,3 +1,4 @@
+/* Concept (?) of combat mechanisms */
 const Enemy = class {
   constructor (name, health, damage) {
     this.name = name;
