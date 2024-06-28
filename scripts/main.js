@@ -9,8 +9,10 @@ let game = {};
 let save = () => localStorage.save = game;
 let load = () => {
   try {
-    game = JSON.parse(localStorage.save);
-  } catch (eror) {
+    let str = localStorage.save;
+    if (str == "[object Object]") throw new Error();
+    game = JSON.parse(str);
+  } catch (error) {
     game = {
       resources: {
         wood: 0,
