@@ -47,3 +47,8 @@ $("#savebtn").click(() => {
   alert("saved"); // change this later to a popup that doesn't require user interaction
   // On that note, a popup template would be nice
 });
+
+$("#exportbtn").click(() => {
+  navigator.clipboard.writeText(JSON.stringify);
+  alert("save copied to clipboard");
+});
