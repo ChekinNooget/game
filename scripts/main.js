@@ -22,7 +22,6 @@ let load = () => {
   }
 };
 
-/* Sets up delta time */
 const update = (() => {
   let lastTick = Date.now();
   return () => {
@@ -33,12 +32,10 @@ const update = (() => {
 })();
 
 $(document).ready(function () {
-  /* Setup the inventory */
+  /* Starts the delta time, auto-save, and other initial content */
   renderInventory();
-  /* Starts delta time count */
   setInterval(update, 100); // every tick is 100 ms (0.1 seconds)
-
-  /* Starts save count */
+  
   load();
   setInterval(save, 10000); // saves every 10 seconds
   
