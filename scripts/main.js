@@ -6,7 +6,7 @@ import renderInventory from "./inventory.js";
 // This should be coming from something else; const object properties can be reassigned
 // yeah, but it was reassigning the entire variable
 let game = {};
-let save = () => localStorage.save = game;
+let save = () => localStorage.save = JSON.stringify(game);
 let load = () => {
   try {
     let str = localStorage.save;
