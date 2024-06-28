@@ -12,4 +12,3 @@ your goal is to buy some type of starting equipment at the grocery store, but wh
 - [ ] Compile the task list
 - [ ] Organize code
 - [x] Fix some bugs
-- [ ] Move inventory items to index.html
