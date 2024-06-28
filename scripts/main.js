@@ -1,5 +1,5 @@
 import renderInventory from "./inventory.js";
-import {Enemy, generateEnemy} from "./inventory.js";
+import {Enemy, generateEnemy} from "./combat.js";
 
 /* Initializes the game */
 // Will "game" be reassigned somewhere?
