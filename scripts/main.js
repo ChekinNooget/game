@@ -15,12 +15,12 @@ const initialSave = {
   time: 0
 };
 
-let game = {};
+let game = JSON.parse(JSON.stringify(initialSave));;
 let save = () => localStorage.save = JSON.stringify(game);
 let load = () => {
   try {
     let str = localStorage.save;
-    if (str == "[object Object]") throw new Error();
+    if (str == "[object Object]" || str == "undefined") throw new Error();
     game = JSON.parse(str);
   } catch (error) {
     game = JSON.parse(JSON.stringify(initialSave));
