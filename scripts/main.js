@@ -5,6 +5,7 @@ let load = () => game = JSON.parse(localStorage.save);
 
 // Will "game" be reassigned somewhere?
 // yes, in the update function - it was raising an error
+// This should be coming from something else; const object properties can be reassigned
 let game = {
   resources: {
     wood: 0,
