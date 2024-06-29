@@ -51,7 +51,7 @@ const logMessage = (msg, clr) => {
   }
 }
 
-const quack = () => logMessage("quack", [200, 200, 0]);
+const quack = () => logMessage("quack", [255, 255, 0]);
 $("#quack").click(quack);
 
 $(document).ready(function () {
@@ -67,8 +67,10 @@ $(document).ready(function () {
 
 $("#savebtn").click(() => {
   save();
-  alert("saved"); // change this later to a popup that doesn't require user interaction
+  //alert("saved"); // change this later to a popup that doesn't require user interaction
   // On that note, a popup template would be nice
+  logMessage("saved",[173,216,230]); // changed popup to log
+  // popup probably still better but this doesn't require user interaction to close out
 });
 
 $("#importbtn").click(() => {
