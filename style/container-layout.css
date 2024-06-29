@@ -17,7 +17,8 @@
   width: 100%;
  }
 #ui-sidebar{
-  margin-right: 2%;
+  margin-right: 1%;
+  padding: 1%;
 }
 #ui-inventory{
   margin-left: 2%;

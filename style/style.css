@@ -9,7 +9,8 @@ body {
 #stats,
 #interface,
 #actions,
-#map {
+#map,
+#ui-sidebar {
   background-color: LightSkyBlue;
 }
 #title{
