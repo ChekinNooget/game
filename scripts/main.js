@@ -47,7 +47,7 @@ const logMessage = (msg, clr) => {
     log.shift();
   }
   for (let i = 0; i < log.length - 1; i++) {
-    $("#ui-msglog")[0].children[i].style.color = `rgba(${log[i][0]}, ${log[i][1]}, ${log[i][2]}, ${105 - 5 * (log.length - i)})`;
+    $("#ui-msglog")[0].children[i].style.color = `rgba(${log[i][0]}, ${log[i][1]}, ${log[i][2]}, ${1.05 - .05 * (log.length - i)})`;
   }
 }
 
