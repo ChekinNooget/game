@@ -15,6 +15,12 @@
   position: fixed;
   bottom: 2%;
   width: 100%;
+ }
+#ui-sidebar{
+  margin-right: 2%;
+}
+#ui-inventory{
+  margin-left: 2%;
 }
 .layout-item {
   margin: 9px;
