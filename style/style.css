@@ -4,18 +4,18 @@ p {
 body {
   font-family: Verdana, sans-serif;
   background-color: AliceBlue;
+  margin: 0px;
 }
 #inv,
 #stats,
 #interface,
 #actions,
-#map,
-#ui-sidebar {
+#map {
   background-color: LightSkyBlue;
 }
-#title{
+#title {
   text-align: center;
 }
-.indivlog{
+.indivlog {
   margin: 8px auto;
 }

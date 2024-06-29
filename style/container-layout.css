@@ -6,27 +6,57 @@
 #ui-cont2 {
   display: flex;
   flex-flow: column nowrap;
+  height: calc(80vh + 10px);
 }
 #ui-cont3 {
   display: flex;
   flex-flow: row nowrap;
+  align-content: stretch;
 }
-#ui-footer{
-  position: fixed;
-  bottom: 2%;
+#ui-cont1 > div {
   width: 100%;
- }
-#ui-sidebar{
-  margin-right: 1%;
-  padding: 1%;
 }
-#ui-inventory{
-  margin-left: 2%;
+#ui-cont3 > div {
+  width: 100%;
+}
+#ui-footer {
+  position: fixed;
+  bottom: 0%;
+  width: 100%;
+  padding: 15px;
+}
+#ui-sidebar {
+  margin-right: 5px;
+  height: 80vh;
+  width: 50% !important;
+}
+#ui-sidebar > div,
+#ui-inventory > div {
+  min-height: 100%;
+}
+#ui-inventory {
+  margin-left: 5px;
+  width: 50% !important;
+  height: 80vh;
 }
 .layout-item {
-  margin: 9px;
+  margin: 0px 9px;
   padding: 5px 20px;
   line-height: 1.4;
   text-align: center;
 }
-
+#stats {
+  height: 20%;
+}
+#interface {
+  height: 50%;
+  margin: 20px 10px;
+}
+#ui-cont3 {
+  height: 30%;
+}
+.footer-button {
+  background-color: lightskyblue;
+  border: none;
+  padding: 4px;
+}
