@@ -38,17 +38,19 @@ const update = (() => {
 })();
 
 const log = [];
+let id = 0;
 // msg: string, clr: array of 3 integers between 0 and 255, inclusive
 
 const logMessage = (msg, clr) => {
-  log.unshift({msg: msg, clr: clr});
-  $("#ui-msglog")[0].innerHTML = `<p class="indivlog" style="color:rgba(${clr[0]},${clr[1]},${clr[2]},1)">${msg} ${Math.random()}</p>` + $("#ui-msglog")[0].innerHTML;
+  log.unshift({msg: msg, clr: clr, id: id});
+  id++;
+  $("#ui-msglog")[0].innerHTML = `<p id="indivlog_${id}" class="indivlog" style="color:rgba(${clr[0]},${clr[1]},${clr[2]},1)">${msg} ${Math.random()}</p>` + $("#ui-msglog")[0].innerHTML;
   if (log.length > 20) {
-    $("#ui-msglog")[0].children[log.length - 1].remove();
+    $(`#indivlog_${log[log.length - 1].id}`).remove();
     log.pop();
   }
   for (let i = 1; i < log.length; i++) {
-    $("#ui-msglog")[0].children[i].style.color = `rgba(${log[i][0]}, ${log[i][1]}, ${log[i][2]}, ${1 - i / 20})`;
+    $(`#indivlog_${log[i].id}`).css("color", `rgba(${log[i].clr[0]}, ${log[i].clr[1]}, ${log[i].clr[2]}, ${1 - i / 25})`);
   }
 }
 
