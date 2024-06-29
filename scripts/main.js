@@ -43,8 +43,8 @@ let id = 0;
 
 const logMessage = (msg, clr) => {
   log.unshift({msg: msg, clr: clr, id: id});
+  $("#ui-msglog").html(`<p id="indivlog_${id}" class="indivlog" style="color:rgba(${clr[0]},${clr[1]},${clr[2]},1)">${msg}</p>`.concat($("#ui-msglog").html()));
   id++;
-  $("#ui-msglog")[0].innerHTML = `<p id="indivlog_${id}" class="indivlog" style="color:rgba(${clr[0]},${clr[1]},${clr[2]},1)">${msg} ${Math.random()}</p>` + $("#ui-msglog")[0].innerHTML;
   if (log.length > 20) {
     $(`#indivlog_${log[log.length - 1].id}`).remove();
     log.pop();
