@@ -41,7 +41,7 @@ const log = [];
 // msg: string, clr: array of 3 integers between 0 and 255, inclusive
 const logMessage = (msg, clr) => {
   log.push({msg: msg, clr: clr});
-  $("#ui-msglog")[0].innerHTML += `<p style="color:rgba(${clr[0]},${clr[1]},${clr[2]},1">${msg}</p>`;
+  $("#ui-msglog")[0].innerHTML += `<p class="indivlog" style="color:rgba(${clr[0]},${clr[1]},${clr[2]},1">${msg}</p>`;
   if (log.length > 20) {
     $("#ui-msglog")[0].children[0].remove();
     log.shift();
