@@ -11,8 +11,13 @@
   display: flex;
   flex-flow: row nowrap;
 }
+#ui-footer{
+  position: fixed;
+  bottom: 2%;
+  width: 100%;
+}
 .layout-item {
-  margin: 7px;
+  margin: 9px;
   padding: 5px 20px;
   line-height: 1.4;
   text-align: center;

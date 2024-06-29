@@ -1,5 +1,8 @@
 /* Concept (?) of combat mechanisms */
-const Enemy = class {
+import data from "../data/enemies.json" with {type: "json"};
+console.log(data);
+
+export const Enemy = class {
   constructor (name, health, damage) {
     this.name = name;
     this.health = health;
@@ -7,6 +10,7 @@ const Enemy = class {
   }
 }
 
+/*
 // cursed syntax lol
 const Fruit = class extends Enemy {
   static fruitNames = ["apple", "banana", "orange", "pear", "watermelon", "blueberry", "raspberry", "blackberry", "grape", "cherry"]
@@ -17,4 +21,18 @@ const Fruit = class extends Enemy {
       Math.floor(Math.random() * 6) + 5
     );
   }
+}
+*/
+
+export const generateEnemy = enemyTypes => {
+  // i hate how this has O(mn) time complexity
+  let enemyIds = [];
+  for (key in data) {
+    if (data[key].type in enemyTypes) {
+      enemyIds.push(key);
+    }
+  }
+
+  let chosenId = enemyIds[Math.floor(Math.random() * enemyIds.length)];
+  return new Enemy(chosenId, data[chosenId].health, data[chosenId].damage);
 }

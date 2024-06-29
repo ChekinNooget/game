@@ -1,5 +1,12 @@
-### Game Description / Ideas
+## Tasks
+- [ ] Compile the task list
+- [x] Fix some bugs
+- [ ] Create message log
+- [ ] Finish combat system
+- [ ] Optimize savecode length
+- [ ] Create other utility methods
 
+## Game Description / Ideas
 you wake up in your house
 you remember reading something inspirational last night and decide you want to git gud; however, you turn around to look at your current situation and realize you have a long way to go
 
@@ -8,14 +15,22 @@ before you do anything else, you gather some type of resource for around a minut
 after that, the game tells you there is a grocery shop 20 meters from your door
 your goal is to buy some type of starting equipment at the grocery store, but while buying stuff you will be attacked by some fruits (invoking juice's idea from earlier)
 
-### Tasks
-- [ ] Compile the task list
-- [ ] Organize code
-- [x] Fix some bugs
-- [ ] Create a template for notification popup
-- [ ] Outline the resource gathering procedure
-- [ ] Outline the upgrade/crafting procedure
+potential resources
 
-### Resource Gathering
+tangible/material resources:
+food
+- alternatively, we can make it so that there are many different types of food, but the player needs to eat them manually
+wood
+metal
+currency
 
-### Upgrades
+### how to gain food
+buy stuff from the grocery store
+you can also learn how to grow food by yourself in your backyard
+### how to gain wood
+cut trees in the forest
+### how to gain metal
+early on, metal mostly comes in the form of scrap which you can find by exploring streets or neighborhoods
+later i guess you can make mining a thing
+### how to gain currency
+you get to work temporarily at certain locations, which pay you every day after work
