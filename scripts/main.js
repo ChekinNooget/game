@@ -41,14 +41,14 @@ const log = [];
 // msg: string, clr: array of 3 integers between 0 and 255, inclusive
 
 const logMessage = (msg, clr) => {
-  log.push({msg: msg, clr: clr});
-  $("#ui-msglog")[0].innerHTML += `<p class="indivlog" style="color:rgba(${clr[0]},${clr[1]},${clr[2]},1)">${msg} ${Math.random()}</p>`;
+  log.unshift({msg: msg, clr: clr});
+  $("#ui-msglog")[0].innerHTML = `<p class="indivlog" style="color:rgba(${clr[0]},${clr[1]},${clr[2]},1)">${msg} ${Math.random()}</p>` + $("#ui-msglog")[0].innerHTML;
   if (log.length > 20) {
-    $("#ui-msglog")[0].children[0].remove();
-    log.shift();
+    $("#ui-msglog")[0].children[log.length - 1].remove();
+    log.pop();
   }
   for (let i = 0; i < log.length - 1; i++) {
-    $("#ui-msglog")[0].children[i].style.color = `rgba(${log[i][0]}, ${log[i][1]}, ${log[i][2]}, ${1.05 - .05 * (log.length - i)})`;
+    $("#ui-msglog")[0].children[i].style.color = `rgba(${log[i][0]}, ${log[i][1]}, ${log[i][2]}, ${1 - i / 20})`;
   }
 }
 
