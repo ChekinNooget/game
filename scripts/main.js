@@ -48,7 +48,7 @@ const logMessage = (msg, clr) => {
     log.pop();
   }
   for (let i = 1; i < log.length; i++) {
-    $("#ui-msglog")[0].children[i].style = `color:rgba(${log[i][0]}, ${log[i][1]}, ${log[i][2]}, ${1 - i / 20})`;
+    $("#ui-msglog")[0].children[i].style.color = `rgba(${log[i][0]}, ${log[i][1]}, ${log[i][2]}, ${1 - i / 20})`;
   }
 }
 
