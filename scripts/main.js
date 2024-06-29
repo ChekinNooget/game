@@ -71,6 +71,16 @@ $("#savebtn").click(() => {
   // On that note, a popup template would be nice
 });
 
+$("#importbtn").click(() => {
+  try {
+    let newSave = prompt("copy your save here (warning: this will override your current progress)");
+    let newGame = JSON.parse(newSave);
+    game = JSON.parse(JSON.stringify(newGame));
+  } catch (error) {
+    alert("import failed");
+  }
+});
+
 $("#exportbtn").click(() => {
   navigator.clipboard.writeText(JSON.stringify(game));
   alert("save copied to clipboard");
