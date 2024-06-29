@@ -75,7 +75,6 @@ $("#exportbtn").click(() => {
   navigator.clipboard.writeText(JSON.stringify(game));
   alert("save copied to clipboard");
 });
-
 $("#resetbtn").click(() => {
   let yes = prompt("are you sure you want to do this? type 'yes' to confirm");
   if (yes == "yes") {
