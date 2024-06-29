@@ -15,7 +15,7 @@ const initialSave = {
   time: 0
 };
 
-let game = JSON.parse(JSON.stringify(initialSave));;
+let game = JSON.parse(JSON.stringify(initialSave));
 const save = () => localStorage.save = JSON.stringify(game);
 const load = () => {
   try {
@@ -38,15 +38,21 @@ const update = (() => {
 })();
 
 const log = [];
+// msg: string, clr: array of 3 integers between 0 and 255, inclusive
 const logMessage = (msg, clr) => {
   log.push({msg: msg, clr: clr});
-  // do sth with ajax idk
+  $("#ui-msglog")[0].innerHTML += `<p style="color:rgba(${clr[0]},${clr[1]},${clr[2]},1">${msg}</p>`;
   if (log.length > 20) {
+    $("#ui-msglog")[0].children[0].remove();
     log.shift();
+  }
+  for (let i = 0; i < log.length - 1; i++) {
+    $("#ui-msglog")[0].children[i].style.color = `rgba(${log[i][0]}, ${log[i][1]}, ${log[i][2]}, ${105 - 5 * (log.length - i)})`;
   }
 }
 
-const quack = () => logMessage("quack", "yellow");
+const quack = () => logMessage("quack", [200, 200, 0]);
+$("#quack").click(quack);
 
 $(document).ready(function () {
   /* Starts the delta time, auto-save, and other initial content */
