@@ -12,6 +12,9 @@ body {
 #map {
   background-color: LightSkyBlue;
 }
+#title{
+  text-align: center;
+}
 .indivlog{
   margin: 8px auto;
 }
