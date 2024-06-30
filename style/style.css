@@ -11,7 +11,7 @@ body {
 #interface,
 #actions,
 #map {
-  background-color: LightSkyBlue;
+  border: 2px solid lightskyblue;
 }
 #title {
   text-align: center;
