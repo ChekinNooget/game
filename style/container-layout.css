@@ -25,6 +25,7 @@
   width: 100%;
   padding: 15px;
 }
+/*message log*/
 #ui-sidebar {
   display: flex;
   align-items: stretch;
@@ -35,11 +36,26 @@
   width: 50% !important;
   max-width: 24vw !important;
 }
+#msglog-header {
+  border: 5px solid black;
+  border-width: 0px 0px 5px 0px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding: 10px;
+}
 #ui-msglog {
-  height: calc(100% - 58px);
+  height: calc(100% - 60px);
   width: 100%;
   overflow-y: scroll;
 }
+#ui-msglog::-webkit-scrollbar {
+  display: none;
+}
+#ui-msglog {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+/*idk*/
 #ui-sidebar > div,
 #ui-inventory > div {
   min-height: 100%;
