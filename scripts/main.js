@@ -1,5 +1,5 @@
 import renderInventory from "./inventory.js";
-import {Enemy, generateEnemy} from "./combat.js";
+import { Enemy, generateEnemy } from "./combat.js";
 
 /* Initializes the game */
 // Will "game" be reassigned somewhere?
@@ -10,13 +10,13 @@ const initialSave = {
   resources: {
     wood: 0,
     metal: 0,
-    science: 0
+    science: 0,
   },
-  time: 0
+  time: 0,
 };
 
 let game = JSON.parse(JSON.stringify(initialSave));
-const save = () => localStorage.save = JSON.stringify(game);
+const save = () => (localStorage.save = JSON.stringify(game));
 const load = () => {
   try {
     let str = localStorage.save;
@@ -34,7 +34,7 @@ const update = (() => {
     let delta = Date.now() - lastTick;
     lastTick = Date.now();
     game.time += delta / 1000;
-  }
+  };
 })();
 
 const log = [];
@@ -42,7 +42,7 @@ let id = 0;
 // msg: string, clr: array of 3 integers between 0 and 255, inclusive
 
 const logMessage = (msg, clr) => {
-  log.unshift({msg: msg, clr: clr, id: id});
+  log.unshift({ msg: msg, clr: clr, id: id });
   $("#ui-msglog").html(`<p id="indivlog_${id}" class="indivlog" style="color:rgba(${clr[0]},${clr[1]},${clr[2]},1)">${msg}</p>`.concat($("#ui-msglog").html()));
   id++;
   if (log.length > 20) {
@@ -52,19 +52,19 @@ const logMessage = (msg, clr) => {
   for (let i = 1; i < log.length; i++) {
     $(`#indivlog_${log[i].id}`).css("color", `rgba(${log[i].clr[0]}, ${log[i].clr[1]}, ${log[i].clr[2]}, ${1 - i / 25})`);
   }
-}
+};
 
 const quack = () => logMessage("quack", [255, 255, 0]);
 $("#quack").click(quack);
 
 $(document).ready(function () {
   /* Starts the delta time, auto-save, and other initial content */
-  renderInventory();
+  renderInventory(game);
   setInterval(update, 100); // every tick is 100 ms (0.1 seconds)
-  
+
   load();
   setInterval(save, 10000); // saves every 10 seconds
-  
+
   console.log("1434"); // i lost the game
 });
 
@@ -72,7 +72,7 @@ $("#savebtn").click(() => {
   save();
   //alert("saved"); // change this later to a popup that doesn't require user interaction
   // On that note, a popup template would be nice
-  logMessage("saved",[173,216,230]); // changed popup to log
+  logMessage("saved", [173, 216, 230]); // changed popup to log
   // popup probably still better but this doesn't require user interaction to close out
 });
 
