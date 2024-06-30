@@ -19,3 +19,11 @@ body {
 .indivlog {
   margin: 8px auto;
 }
+.footer-button{
+  border: 2px solid lightskyblue !important;
+  background-color: aliceblue !important;
+  transition-duration: 0.4s;
+}
+.footer-button:hover{
+  background-color: lightskyblue !important;
+}
