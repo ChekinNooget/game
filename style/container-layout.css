@@ -28,7 +28,9 @@
 #ui-sidebar {
   margin-right: 5px;
   height: 80vh;
+  max-height: 80vh;
   width: 50% !important;
+  max-width: 24vw !important;
 }
 #ui-sidebar > div,
 #ui-inventory > div {
@@ -38,6 +40,7 @@
   margin-left: 5px;
   width: 50% !important;
   height: 80vh;
+  max-height: 80vh;
 }
 .layout-item {
   margin: 0px 9px;

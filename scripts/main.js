@@ -57,10 +57,10 @@ const logMessage = (msg, clr) => {
 const clearLog = () => {
   log = [];
   $(".indivlog").remove();
-  logMessage("message log cleared", [173, 216, 230]); 
-}
+  logMessage("message log cleared", [173, 216, 230]);
+};
 
-const quack = () => logMessage((Math.random() < 0.99 ? "quack" : "QUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACK"), [200, 200, 0]);
+const quack = () => logMessage(Math.random() < 0.99 ? "quack" : "QUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACK", [200, 200, 0]);
 $("#quack").click(quack);
 
 $(document).ready(function () {
@@ -88,7 +88,7 @@ $("#importbtn").click(() => {
     let newGame = JSON.parse(newSave);
     game = JSON.parse(JSON.stringify(newGame));
   } catch (error) {
-    logMessage("import failed", [255, 0, 0]); 
+    logMessage("import failed", [255, 0, 0]);
   }
 });
 
