@@ -78,7 +78,7 @@ $("#savebtn").click(() => {
   save();
   //alert("saved"); // change this later to a popup that doesn't require user interaction
   // On that note, a popup template would be nice
-  logMessage("saved", [173, 216, 230]); // changed popup to log
+  logMessage("saved", [0, 0, 0]); // changed popup to log
   // popup probably still better but this doesn't require user interaction to close out
 });
 
