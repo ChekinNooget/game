@@ -37,7 +37,7 @@ const update = (() => {
   };
 })();
 
-const log = [];
+let log = [];
 let id = 0;
 // msg: string, clr: array of 3 integers between 0 and 255, inclusive
 
@@ -53,6 +53,12 @@ const logMessage = (msg, clr) => {
     $(`#indivlog_${log[i].id}`).css("color", `rgba(${log[i].clr[0]}, ${log[i].clr[1]}, ${log[i].clr[2]}, ${1 - i / 25})`);
   }
 };
+
+const clearLog = () => {
+  log = [];
+  $(".indivlog").remove();
+  logMessage("message log cleared", [173, 216, 230]); 
+}
 
 const quack = () => logMessage("quack", [255, 255, 0]);
 $("#quack").click(quack);
@@ -82,19 +88,21 @@ $("#importbtn").click(() => {
     let newGame = JSON.parse(newSave);
     game = JSON.parse(JSON.stringify(newGame));
   } catch (error) {
-    alert("import failed");
+    logMessage("import failed", [255, 0, 0]); 
   }
 });
 
 $("#exportbtn").click(() => {
   navigator.clipboard.writeText(JSON.stringify(game));
-  alert("save copied to clipboard");
+  logMessage("save copied to clipboard", [173, 216, 230]);
 });
+
 $("#resetbtn").click(() => {
   let yes = prompt("are you sure you want to do this? type 'yes' to confirm");
   if (yes == "yes") {
     game = JSON.parse(JSON.stringify(initialSave));
     save();
     load();
+    clearLog();
   }
 });

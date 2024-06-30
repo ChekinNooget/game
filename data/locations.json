@@ -1,0 +1,12 @@
+{
+    "home": {
+        "max_exploration": 100,
+        "exploration": {
+            "1": "You find the light switch.",
+            "2": "tbd",
+            "3": "tbd",
+            "4": "tbd",
+            "5": ["!unlock(map)", "tbd"]
+        }
+    }
+}
