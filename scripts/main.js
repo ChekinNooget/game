@@ -60,7 +60,7 @@ const clearLog = () => {
   logMessage("message log cleared", [173, 216, 230]); 
 }
 
-const quack = () => logMessage("quack", [255, 255, 0]);
+const quack = () => logMessage((Math.random() < 0.99 ? "quack" : "QUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACK"), [200, 200, 0]);
 $("#quack").click(quack);
 
 $(document).ready(function () {
