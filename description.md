@@ -1,9 +1,8 @@
 ## Tasks
 - [ ] Compile the task list
 - [x] Fix some bugs
-- [ ] Create message log
+- [x] Create message log
 - [ ] Finish combat system
-- [ ] Optimize savecode length
 - [ ] Create other utility methods
 
 ## Game Description / Ideas
