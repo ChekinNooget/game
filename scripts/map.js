@@ -40,6 +40,10 @@ class Map {
       this.ctx.circle(node.x, node.y);
     });
   }
+  render() {
+    renderRoutes();
+    renderLocations();
+  }
 
   newNode(x, y, id=Date.now()) {
     this.nodes.push({
@@ -57,5 +61,4 @@ class Map {
       access: access
     });
   }
-  
 }
