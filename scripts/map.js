@@ -10,12 +10,12 @@ const canvas = $("#map-canvas")[0];
 const ctx = canvas.getContext("2d");
 const RADIUS = 7;
 
-ctx.prototype.circle = function (x, y) {
+ctx.__proto__.circle = function (x, y) {
   this.beginPath();
   this.arc(x, y, RADIUS, 0, 2 * Math.PI);
   this.stroke();
 }
-ctx.prototype.line = function (x1, y1, x2, y2) {
+ctx.__proto__.line = function (x1, y1, x2, y2) {
   this.beginPath();
   this.moveTo(x1, y1);
   this.lineTo(x2, y2);
