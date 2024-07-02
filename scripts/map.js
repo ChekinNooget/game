@@ -70,7 +70,7 @@ export default class Map {
   fillEmptyRoutes(cost, access=false) {
     const nodes = Object.keys(this.nodes);
     nodes.forEach((key) => {
-      nodes.filter((n) => !Object.keys(nodes[key].routes).includes(n)).forEach((id) => {
+      nodes.filter((n) => !Object.keys(this.nodes[key].routes).concat([key]).includes(n)).forEach((id) => {
         newRoute(key, id, cost, access);
       });
     });
