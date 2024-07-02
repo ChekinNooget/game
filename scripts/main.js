@@ -1,5 +1,6 @@
-import renderInventory from "./inventory.js";
 import { Enemy, generateEnemy } from "./combat.js";
+import renderInventory from "./inventory.js";
+import Map from "./map.js";
 
 /* Initializes the game */
 // Will "game" be reassigned somewhere?
@@ -28,12 +29,23 @@ const load = () => {
   }
 };
 
+// Map
+const map = new Map();
+map.newNode(10, 10, "start");
+map.newNode(27, 63, "stickman's house");
+map.newRoute("start", "stickman's house", 2, true);
+const updateMap = () => {
+  map.clear();
+  map.render();
+}
+
 const update = (() => {
   let lastTick = Date.now();
   return () => {
     let delta = Date.now() - lastTick;
     lastTick = Date.now();
     game.time += delta / 1000;
+    updateMap();
   };
 })();
 
