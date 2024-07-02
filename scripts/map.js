@@ -51,16 +51,28 @@ export default class Map {
   newNode(x, y, id=Date.now()) {
     this.nodes[id.toString()] = {
       x: x,
-      y: y
+      y: y,
+      routes: {}
     };
   }
   newRoute(id1, id2, cost, access=false) {
-    this.routes.push({
+    const route = {
       start: this.nodes[id1],
       end: this.nodes[id2],
       length: Math.sqrt((id2.x-id1.x)**2 + (id2.y-id1.y)**2),
       cost: cost,
       access: access
+    };
+    this.routes.push(route);
+    this.nodes[id1].routes[id2] = route;
+    this.nodes[id2].routes[id1] = route;
+  }
+  fillEmptyRoutes(cost, access=false) {
+    const nodes = Object.keys(this.nodes);
+    nodes.forEach((key) => {
+      nodes.filter((n) => !Object.keys(nodes[key].routes).includes(n)).forEach((id) => {
+        newRoute(key, id, cost, access);
+      });
     });
   }
 }
