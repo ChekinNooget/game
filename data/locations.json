@@ -9,12 +9,16 @@
             "5": ["!unlock|map", "After some more exploring around this house, you find its front door. You open the door, and see a grocery store just some twenty meters away from your location. Maybe you could buy some groceries over there..."],
             "10": "After some more exploring, you slowly realize that this is your own house. A few memories return to your mind, though they are no more than (tbd).",
             "100": "You have fully explored your house - every corner, every space beneath every bed in every room. this isn't finished pls don't yell at me for my horrendous writing"
-        }
+        },
+        "x": 10,
+        "y": 10
     },
     "grocery_store": {
         "max_exploration": 1000,
         "logs": {
             "5": "tbd"
-        }
+        },
+        "x": 27,
+        "y": 63
     }
 }
