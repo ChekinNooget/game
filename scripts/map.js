@@ -71,7 +71,7 @@ export default class Map {
     const nodes = Object.keys(this.nodes);
     nodes.forEach((key) => {
       nodes.filter((n) => !Object.keys(this.nodes[key].routes).concat([key]).includes(n)).forEach((id) => {
-        newRoute(key, id, cost, access);
+        this.newRoute(key, id, cost, access);
       });
     });
   }
