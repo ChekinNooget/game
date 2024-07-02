@@ -6,7 +6,7 @@
  * Travel time can be reduced by better equipment or vehicles
  */
 
-const canvas = $("#map-canvas");
+const canvas = $("#map-canvas")[0];
 const ctx = canvas.getContext("2d");
 const RADIUS = 7;
 
