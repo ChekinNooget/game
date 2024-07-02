@@ -32,7 +32,7 @@ export default class Map {
 
   renderRoutes() {
     this.routes.forEach((route) => {
-      this.ctx.line(route.start.x, route.start.y, route.end.x, route.end.y);
+      this.ctx.line(this.nodes[route.start].x, this.nodes[route.start].y, this.nodes[route.end].x, this.nodes[route.end].y);
     });
   }
   renderLocations() {
