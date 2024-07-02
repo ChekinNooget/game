@@ -4,7 +4,7 @@ import { explore } from "./exploration.js";
 import renderInventory from "./inventory.js";
 import Map from "./map.js";
 
-import locationsData from "/data/locations.json";
+import locationsData from "../data/locations.json";
 
 /* Initializes the game */
 // Will "game" be reassigned somewhere?
