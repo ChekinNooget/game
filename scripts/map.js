@@ -36,7 +36,7 @@ export default class Map {
     });
   }
   renderLocations() {
-    Object.getOwnPropertyNames(this.nodes).forEach((node) => {
+    Object.values(this.nodes).forEach((node) => {
       this.ctx.circle(node.x, node.y);
     });
   }
