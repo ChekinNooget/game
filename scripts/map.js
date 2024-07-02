@@ -44,8 +44,8 @@ export default class Map {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
   render() {
-    renderRoutes();
-    renderLocations();
+    this.renderRoutes();
+    this.renderLocations();
   }
 
   newNode(x, y, id=Date.now()) {
