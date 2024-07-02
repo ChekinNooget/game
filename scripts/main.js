@@ -4,6 +4,8 @@ import { explore } from "./exploration.js";
 import renderInventory from "./inventory.js";
 import Map from "./map.js";
 
+import locationsData from "data/locations.json";
+
 /* Initializes the game */
 // Will "game" be reassigned somewhere?
 // yes, in the update function - it was raising an error
@@ -48,9 +50,9 @@ const load = () => {
 
 // Map
 const map = new Map();
-map.newNode(10, 10, "start");
-map.newNode(27, 63, "stickman's house");
-map.newRoute("start", "stickman's house", 2, true);
+Object.keys(locationsData).forEach((location) => {
+  map.newNode(locationsData[location].x, locationsData[location].y, location);
+});
 const updateMap = () => {
   map.clear();
   map.render();
