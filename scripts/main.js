@@ -1,7 +1,8 @@
-import renderInventory from "./inventory.js";
 import { Enemy, generateEnemy } from "./combat.js";
 import { logColors, logMessage, clearLog, mergeObjects, formatCooldown } from "./utils.js";
 import { explore } from "./exploration.js";
+import renderInventory from "./inventory.js";
+import Map from "./map.js";
 
 /* Initializes the game */
 // Will "game" be reassigned somewhere?
@@ -43,6 +44,16 @@ const load = () => {
   }
 };
 
+// Map
+const map = new Map();
+map.newNode(10, 10, "start");
+map.newNode(27, 63, "stickman's house");
+map.newRoute("start", "stickman's house", 2, true);
+const updateMap = () => {
+  map.clear();
+  map.render();
+}
+
 const quack = () => logMessage(Math.random() < 0.99 ? "quack" : "QUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACK", [200, 200, 0]);
 $("#quack").click(quack);
 
@@ -55,6 +66,7 @@ const update = (() => {
 
     game.cooldowns.explore = Math.max(game.cooldowns.explore - delta, 0);
     $("#explorebtn").html(formatCooldown(game.cooldowns.explore, "explore"));
+    updateMap();
   };
 })();
 

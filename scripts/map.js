@@ -6,23 +6,23 @@
  * Travel time can be reduced by better equipment or vehicles
  */
 
-const canvas = $("#map-canvas");
+const canvas = $("#map-canvas")[0];
 const ctx = canvas.getContext("2d");
 const RADIUS = 7;
 
-ctx.prototype.circle = function (x, y) {
+ctx.__proto__.circle = function (x, y) {
   this.beginPath();
   this.arc(x, y, RADIUS, 0, 2 * Math.PI);
   this.stroke();
 }
-ctx.prototype.line = function (x1, y1, x2, y2) {
+ctx.__proto__.line = function (x1, y1, x2, y2) {
   this.beginPath();
   this.moveTo(x1, y1);
   this.lineTo(x2, y2);
   this.stroke();
 }
 
-class Map {
+export default class Map {
   constructor() {
     this.canvas = canvas;
     this.ctx = ctx;
@@ -39,6 +39,13 @@ class Map {
     this.nodes.forEach((node) => {
       this.ctx.circle(node.x, node.y);
     });
+  }
+  clear() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+  render() {
+    this.renderRoutes();
+    this.renderLocations();
   }
 
   newNode(x, y, id=Date.now()) {
@@ -57,5 +64,4 @@ class Map {
       access: access
     });
   }
-  
 }
