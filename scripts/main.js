@@ -35,6 +35,7 @@ const save = () => (localStorage.save = JSON.stringify(game));
 const load = () => {
   try {
     let str = localStorage.save;
+    // I think this error would be covered by JSON.parse(str)?
     if (str == "[object Object]" || str == "undefined") throw new Error();
     game = JSON.parse(str);
     mergeObjects(game, initialSave);
