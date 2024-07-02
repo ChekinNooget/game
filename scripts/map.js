@@ -52,7 +52,7 @@ export default class Map {
     this.nodes[id.toString()] = {
       x: x,
       y: y
-    });
+    };
   }
   newRoute(id1, id2, cost, access=false) {
     this.routes.push({
