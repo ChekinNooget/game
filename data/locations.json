@@ -1,12 +1,20 @@
 {
     "home": {
         "max_exploration": 100,
-        "exploration": {
-            "1": "You find the light switch.",
-            "2": "tbd",
-            "3": "tbd",
-            "4": "tbd",
-            "5": ["!unlock(map)", "tbd"]
+        "logs": {
+            "1": "You find the light switch and toggle it on. Blinding light rays shoot from the lamp hanging from the ceiling, but it was not long before your eyes adjust to the setting, which you quickly realized to be a basement.",
+            "2": "This basement seems to be quite large, but you soon found a staircase leading up to what you assume to be rest of the house. The air of the basement feels damp, and you are eager to get out of it.",
+            "3": "You climb up the staircase, and was immediately greeted by a dining table with plates and eating utensils already placed above it. Conveniently, your stomach begins to growl. If only if there was something to eat...",
+            "4": "You discover a fridge, only to find with disappointment that it is completely empty. You stand for a while to wonder what type of home owners don't keep their fridge occupied, but another growl from your stomach interrupts your thought.",
+            "5": ["!unlock|map", "After some more exploring around this house, you find its front door. You open the door, and see a grocery store just some twenty meters away from your location. Maybe you could buy some groceries over there..."],
+            "10": "After some more exploring, you slowly realize that this is your own house. A few memories return to your mind, though they are no more than (tbd).",
+            "100": "You have fully explored your house - every corner, every space beneath every bed in every room. this isn't finished pls don't yell at me for my horrendous writing"
+        }
+    },
+    "grocery_store": {
+        "max_exploration": 1000,
+        "logs": {
+            "5": "tbd"
         }
     }
 }
