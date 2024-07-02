@@ -22,7 +22,7 @@ ctx.prototype.line = function (x1, y1, x2, y2) {
   this.stroke();
 }
 
-class Map {
+export default class Map {
   constructor() {
     this.canvas = canvas;
     this.ctx = ctx;
@@ -39,6 +39,9 @@ class Map {
     this.nodes.forEach((node) => {
       this.ctx.circle(node.x, node.y);
     });
+  }
+  clear() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
   render() {
     renderRoutes();
