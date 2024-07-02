@@ -53,6 +53,7 @@ const map = new Map();
 Object.keys(locationsData).forEach((location) => {
   map.newNode(locationsData[location].x, locationsData[location].y, location);
 });
+map.fillEmptyRoutes(1434, true);
 const updateMap = () => {
   map.clear();
   map.render();
