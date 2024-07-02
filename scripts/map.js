@@ -26,13 +26,13 @@ export default class Map {
   constructor() {
     this.canvas = canvas;
     this.ctx = ctx;
-    this.nodes = [];
+    this.nodes = {};
     this.routes = [];
   }
 
   renderRoutes() {
     this.routes.forEach((route) => {
-      this.ctx.line(this.nodes[route.start].x, this.nodes[route.start].y, this.nodes[route.end].x, this.nodes[route.end].y);
+      this.ctx.line(route.start.x, route.start.y, route.end.x, route.end.y);
     });
   }
   renderLocations() {
@@ -49,16 +49,15 @@ export default class Map {
   }
 
   newNode(x, y, id=Date.now()) {
-    this.nodes.push({
-      id: id.toString(),
+    this.nodes[id.toString()] = {
       x: x,
       y: y
     });
   }
   newRoute(id1, id2, cost, access=false) {
     this.routes.push({
-      start: id1,
-      end: id2,
+      start: this.nodes[id1],
+      end: this.nodes[id2],
       length: Math.sqrt((id2.x-id1.x)**2 + (id2.y-id1.y)**2),
       cost: cost,
       access: access
