@@ -27,11 +27,11 @@ export const logMessage = (msg, clr) => {
 export const clearLog = () => {
   log = [];
   $(".indivlog").remove();
-  logMessage("message log cleared", [173, 216, 230]);
+  logMessage("message log cleared", logColors.special);
 };
 
 export const mergeObjects = (obj1, obj2) => {
-    for (key in obj2) {
+    for (let key in obj2) {
         if (obj1[key] == undefined) {
             if (typeof obj2[key] == "object")
                 obj1[key] = JSON.parse(JSON.stringify(obj2[key]));

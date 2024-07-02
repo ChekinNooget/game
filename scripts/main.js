@@ -39,6 +39,7 @@ const load = () => {
     game = JSON.parse(str);
     mergeObjects(game, initialSave);
   } catch (error) {
+    console.log(error);
     game = JSON.parse(JSON.stringify(initialSave));
     save();
   }
@@ -82,6 +83,8 @@ $(document).ready(function () {
     logMessage("You wake up from a terrible dream. You can't recall from your memory where you are, nor any details from your previous life experiences.", logColors.story);
     logMessage("You open your eyes, and find yourself surrounded in total darkness. Perhaps there might be a light switch if you touch around the walls of the room...", logColors.story); // dabcabcdabcadbaa
   }
+
+  if (game.unlocks.map) $("#explprgs").css("display", "block");
 
   console.log("1434"); // i lost the game
 });

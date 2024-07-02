@@ -7,6 +7,7 @@ const processMessage = (game, message) => {
         if (command == "!unlock") {
             game.unlocks[params[0]] = true;
             logMessage(`New feature unlocked: ${params[0]}`, logColors.gold);
+            if (params[0] == "map") $("#explprgs").css("display", "block");
         }
     } else {
         logMessage(message, logColors.story);
@@ -22,6 +23,7 @@ export const explore = game => {
         else if (log > game.exploration[location]) newLogs.push(log);
     }
     game.exploration[location]++;
+    $("#explprgs").html(`progress: ${Math.floor(game.exploration[location] * 100 / data[location].max_exploration)}%`);
     for (let nextLog in newLogs) {
         if (typeof locLogs[newLogs[nextLog]] == "string") {
             processMessage(game, locLogs[newLogs[nextLog]]);
