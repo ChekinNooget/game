@@ -1,0 +1,13 @@
+.action-btn {
+  width: 100%;
+  border-width: 0px 0px;
+  padding: 7px;
+  background-color: #daf0f8;
+}
+.action-btn:hover {
+  background-color: #c6e3ee;
+  transition: 0.25s;
+}
+.action-btn.on-cooldown {
+  background-color: #b2c4cb;
+}

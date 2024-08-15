@@ -94,7 +94,10 @@ const update = (() => {
     game.time += delta / 1000;
 
     game.cooldowns.explore = Math.max(game.cooldowns.explore - delta, 0);
-    $("#explorebtn").html(formatCooldown(game.cooldowns.explore, "explore"));
+    $("#explorebtn").html(formatCooldown(game.cooldowns.explore, "explore"))
+    if(game.cooldowns.explore == 0){
+      $("#explorebtn")[0].classList.remove("on-cooldown");
+    }
     updateMap();
   };
 })();
@@ -125,6 +128,8 @@ $("#explorebtn").click(() => {
     explore(game);
     update();
     game.cooldowns.explore = 1500;
+    console.log($("#explorebtn")[0].classList)
+    $("#explorebtn")[0].classList.add("on-cooldown");
   }
 });
 

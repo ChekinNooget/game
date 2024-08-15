@@ -8,6 +8,7 @@
     <script src="scripts/main.js" type="module"></script>
     <link rel="stylesheet" href="style/style.css" />
     <link rel="stylesheet" href="style/container-layout.css" />
+    <link rel="stylesheet" href="style/button.css" />
   </head>
   <body>
     <h1 id="title"><b>do we still need a game title</b></h1>
@@ -23,8 +24,7 @@
         <div class="layout-item" id="stats">STATS</div>
         <div class="layout-item" id="interface">
           <p>INTERFACE</p>
-          <button id="explorebtn" type="button">explore</button>
-          <p id="explprgs" style="display:none">progress: 0%</p>
+          <p id="explprgs" style="display: none">progress: 0%</p>
           <div id="mockbattle">
             <p id="enemy1">placeholder</p>
             <p>vs</p>
@@ -32,7 +32,12 @@
           </div>
         </div>
         <div id="ui-cont3">
-          <div class="layout-item" id="actions">ACTIONS</div>
+          <div class="layout-item" id="actions">
+            <p>ACTIONS</p>
+            <div>
+              <button id="explorebtn" class="action-btn" type="button">explore</button>
+            </div>
+          </div>
           <div class="layout-item" id="map">
             MAP
             <canvas id="map-canvas" width="200" height="200"></canvas>
