@@ -52,7 +52,7 @@ export const generateEnemy = enemyTypes => {
   return enemy;
 }
 
-export const fight = (enemy1, enemy2) => {
+export const fight = (enemy1, enemy2, then = (arg => {})) => {
   updateMockBattle(enemy1, enemy2);
 
   let timeoutIds = [];
@@ -67,10 +67,11 @@ export const fight = (enemy1, enemy2) => {
     if (!e2.alive) {
       logMessage(`${e1.name} wins the fight!`, logColors.gold);
       clearTimeouts();
+      then(enemy1.alive);
       return;
     }
     timeoutIds[timeoutIndex] = attack(e1, e2, timeoutIndex);
-  }, Math.floor(Math.random() * 201) + 900);
+  }, Math.floor(Math.random() * 201) /*+ 900*/);
 
   timeoutIds = [attack(enemy1, enemy2, 0), attack(enemy2, enemy1, 1)];
 }

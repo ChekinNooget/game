@@ -7,6 +7,7 @@ export const logColors = {
   story: [0, 0, 0],
   gold: [212, 175, 55],
   special: [173, 216, 230],
+  yay: [0, 255, 0],
   fail: [255, 0, 0],
   quack: [200, 200, 0]
 }

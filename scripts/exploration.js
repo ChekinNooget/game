@@ -1,5 +1,7 @@
+// can someone pls explain why indents here are 4 spaces instead of 2
 import data from "../data/locations.json" with {type: "json"};
 import { logColors, logMessage } from "./utils.js";
+import { Enemy, fight } from "./combat.js";
 
 const processMessage = (game, message) => {
     if (message.charAt(0) == '!') {
@@ -8,10 +10,24 @@ const processMessage = (game, message) => {
             game.unlocks[params[0]] = true;
             logMessage(`New feature unlocked: ${params[0]}`, logColors.gold);
             if (params[0] == "map") $("#explprgs").css("display", "block");
+        } else if (command == "!fight") {
+            // if you're reading this pls try to reimplement this in async/await format idk how to (you might also need to change combat.js)
+            let success = fight(new Enemy("player", 100, 5), new Enemy("blueberry buffed for testing", 100, 10), success => {
+                if (success) {
+                    logMessage("You won the fight!", logColors.yay);
+                } else {
+                    logMessage("You lost the fight; you lost some exploration progress as a result.", logColors.fail);
+                    game.exploration[game.location]--;
+                }
+            });
         }
     } else {
         logMessage(message, logColors.story);
     }
+}
+
+export const updateExplorationProgress = game => {
+    $("#explprgs").html(`progress: ${Math.floor(game.exploration[game.location] * 100 / data[game.location].max_exploration)}%`);
 }
 
 export const explore = game => {
@@ -23,7 +39,7 @@ export const explore = game => {
         else if (log > game.exploration[location]) newLogs.push(log);
     }
     game.exploration[location]++;
-    $("#explprgs").html(`progress: ${Math.floor(game.exploration[location] * 100 / data[location].max_exploration)}%`);
+    updateExplorationProgress(game);
     for (let nextLog in newLogs) {
         if (typeof locLogs[newLogs[nextLog]] == "string") {
             processMessage(game, locLogs[newLogs[nextLog]]);

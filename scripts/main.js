@@ -1,6 +1,6 @@
 import { generateEnemy, fight } from "./combat.js";
 import { logColors, logMessage, clearLog, mergeObjects, formatCooldown } from "./utils.js";
-import { explore } from "./exploration.js";
+import { explore, updateExplorationProgress } from "./exploration.js";
 import renderInventory from "./inventory.js";
 import Map from "./map.js";
 
@@ -23,6 +23,8 @@ const initialSave = {
   },
   unlocks: {
     map: false,
+    shop: false,
+    home: true,
     grocery_store: false
   },
   cooldowns: {
@@ -48,6 +50,17 @@ const load = () => {
   }
 };
 
+// locations management
+
+const changeLocation = newLocation => {
+  if (game.location == newLocation) return;
+  if (!game.unlocks[newLocation]) return;
+  if (!game.unlocks.map) return;
+  game.location = newLocation;
+  updateExplorationProgress(game);
+  logMessage("Arrived at " + newLocation, logColors.default);
+}
+
 // Map
 const map = new Map();
 Object.keys(locationsData).forEach((location) => {
@@ -58,6 +71,14 @@ const updateMap = () => {
   map.clear();
   map.render();
 }
+
+$("#map-canvas").click((e, t) => {
+  Object.keys(locationsData).forEach((location) => {
+    if ((locationsData[location].x - e.offsetX) ** 2 + (locationsData[location].y - e.offsetY) ** 2 <= 49) {
+      changeLocation(location);
+    }
+  });
+});
 
 const quack = () => {
   logMessage(Math.random() < 0.99 ? "quack" : "QUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACK", [200, 200, 0]);
@@ -78,7 +99,7 @@ const update = (() => {
   };
 })();
 
-$(document).ready(function () {
+const init = () => {
   /* Starts the delta time, auto-save, and other initial content */
   load();
   setInterval(save, 10000); // saves every 10 seconds
@@ -91,18 +112,19 @@ $(document).ready(function () {
     logMessage("You open your eyes, and find yourself surrounded in total darkness. Perhaps there might be a light switch if you touch around the walls of the room...", logColors.story); // dabcabcdabcadbaa
   }
 
+  updateExplorationProgress(game);
   if (game.unlocks.map) $("#explprgs").css("display", "block");
 
   fight(generateEnemy(["small", "medium", "large"]), generateEnemy(["small", "medium", "large"]));
 
   console.log("1434"); // i lost the game
-});
+}; $(document).ready(init);
 
 $("#explorebtn").click(() => {
   if (game.cooldowns.explore == 0) {
     explore(game);
     update();
-    game.cooldowns.explore = 10000;
+    game.cooldowns.explore = 100;
   }
 });
 
@@ -136,8 +158,6 @@ $("#resetbtn").click(() => {
   if (yes == "yes") {
     game = JSON.parse(JSON.stringify(initialSave));
     save();
-    load();
-    clearLog();
-    update();
+    location.reload();
   }
 });

@@ -55,7 +55,7 @@
         "type": "large"
     },
     "pumpkin": {
-        "heath": 155,
+        "health": 155,
         "damage": 5,
         "type": "large"
     }
