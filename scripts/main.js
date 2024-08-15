@@ -124,7 +124,7 @@ $("#explorebtn").click(() => {
   if (game.cooldowns.explore == 0) {
     explore(game);
     update();
-    game.cooldowns.explore = 100;
+    game.cooldowns.explore = 1500;
   }
 });
 
