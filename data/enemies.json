@@ -1,62 +1,62 @@
 {
     "blueberry": {
-        "health": 5,
-        "damage": 1,
+        "health": 50,
+        "damage": 5,
         "type": "small"
     },
     "raspberry": {
-        "health": 3,
-        "damage": 2,
+        "health": 30,
+        "damage": 9,
         "type": "small"
     },
     "blackberry": {
-        "health": 3,
-        "damage": 2,
+        "health": 35,
+        "damage": 8,
         "type": "small"
     },
     "grape": {
-        "health": 6,
-        "damage": 1,
+        "health": 75,
+        "damage": 4,
         "type": "small"
     },
     "cherry": {
-        "health": 4,
-        "damage": 2,
+        "health": 45,
+        "damage": 7,
         "type": "small"
     },
     "apple": {
-        "health": 8,
-        "damage": 2,
+        "health": 50,
+        "damage": 8,
         "type": "medium"
     },
     "banana": {
-        "health": 5,
-        "damage": 3,
+        "health": 35,
+        "damage": 12,
         "type": "medium"
     },
     "orange": {
-        "health": 10,
-        "damage": 1,
+        "health": 115,
+        "damage": 4,
         "type": "medium"
     },
     "pear": {
-        "health": 7,
-        "damage": 2,
+        "health": 45,
+        "damage": 11,
         "type": "medium"
     },
     "watermelon": {
-        "health": 15,
-        "damage": 3,
+        "health": 80,
+        "damage": 8,
         "type": "large"
     },
     "coconut": {
-        "health": 12,
-        "damage": 14,
+        "health": 65,
+        "damage": 11,
         "type": "large"
     },
     "pumpkin": {
-        "heath": 20,
-        "damage": 2,
+        "heath": 155,
+        "damage": 5,
         "type": "large"
     }
 }

@@ -16,6 +16,9 @@ body {
 #title {
   text-align: center;
 }
+#mockbattle p {
+  display: inline;
+}
 .indivlog {
   padding: 6px;
   border-color: black;

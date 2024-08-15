@@ -1,4 +1,4 @@
-import { Enemy, generateEnemy } from "./combat.js";
+import { generateEnemy, fight } from "./combat.js";
 import { logColors, logMessage, clearLog, mergeObjects, formatCooldown } from "./utils.js";
 import { explore } from "./exploration.js";
 import renderInventory from "./inventory.js";
@@ -59,7 +59,10 @@ const updateMap = () => {
   map.render();
 }
 
-const quack = () => logMessage(Math.random() < 0.99 ? "quack" : "QUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACK", [200, 200, 0]);
+const quack = () => {
+  logMessage(Math.random() < 0.99 ? "quack" : "QUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACK", [200, 200, 0]);
+  fight(generateEnemy(["small", "medium", "large"]), generateEnemy(["small", "medium", "large"]));
+};
 $("#quack").click(quack);
 
 const update = (() => {
@@ -89,6 +92,8 @@ $(document).ready(function () {
   }
 
   if (game.unlocks.map) $("#explprgs").css("display", "block");
+
+  fight(generateEnemy(["small", "medium", "large"]), generateEnemy(["small", "medium", "large"]));
 
   console.log("1434"); // i lost the game
 });

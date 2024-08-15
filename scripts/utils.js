@@ -31,24 +31,30 @@ export const clearLog = () => {
 };
 
 export const mergeObjects = (obj1, obj2) => {
-    for (let key in obj2) {
-        if (obj1[key] == undefined) {
-            if (typeof obj2[key] == "object")
-                obj1[key] = JSON.parse(JSON.stringify(obj2[key]));
-            else
-                obj1[key] = obj2[key];
-        } else
-            if (typeof obj2[key] == "object")
-                mergeObjects(obj1[key], obj2[key]);
-    }
+  for (let key in obj2) {
+    if (obj1[key] == undefined) {
+      if (typeof obj2[key] == "object")
+        obj1[key] = JSON.parse(JSON.stringify(obj2[key]));
+      else
+        obj1[key] = obj2[key];
+    } else if (typeof obj2[key] == "object")
+      mergeObjects(obj1[key], obj2[key]);
+  }
 }
 
 export const formatCooldown = (cd, text) => {
-    if (cd >= 1000) {
-        return `${Math.round(cd / 10) / 100} seconds`;
-    } else if (cd > 0) {
-        return `${cd} milliseconds`;
-    } else {
-        return text;
-    }
+  if (cd >= 1000) {
+    return `${Math.round(cd / 10) / 100} seconds`;
+  } else if (cd > 0) {
+    return `${cd} milliseconds`;
+  } else {
+    return text;
+  }
+}
+
+export const updateMockBattle = (enemy1, enemy2) => {
+  console.log(enemy1.toString());
+  console.log(enemy2.toString());
+  $("#enemy1").html(enemy1.toString());
+  $("#enemy2").html(enemy2.toString());
 }
