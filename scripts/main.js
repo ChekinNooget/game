@@ -1,7 +1,8 @@
 import { generateEnemy, fight } from "./combat.js";
-import { logColors, logMessage, clearLog, mergeObjects, formatCooldown } from "./utils.js";
+import { logColors, logMessage, clearLog, cloneObject, mergeObjects, formatCooldown } from "./utils.js";
 import { explore, updateExplorationProgress } from "./exploration.js";
-import renderInventory from "./inventory.js";
+import { ItemList, Inventory } from "./inventory.js";
+import { Shop } from "./shop.js";
 import Map from "./map.js";
 
 import locationsData from "../data/locations.json" with {type: "json"};
@@ -12,11 +13,7 @@ import locationsData from "../data/locations.json" with {type: "json"};
 // This should be coming from something else; const object properties can be reassigned
 // yeah, but it was reassigning the entire variable
 const initialSave = {
-  resources: {
-    wood: 0,
-    metal: 0,
-    science: 0,
-  },
+  inventory: new Inventory("#inv-contents"),
   exploration: {
     home: 0,
     grocery_store: 0
@@ -33,6 +30,10 @@ const initialSave = {
   location: "home",
   time: 0,
 };
+
+const groceryShop = new Shop();
+groceryShop.addItem(new ItemList.knife(), 10);
+groceryShop.addItem(new ItemList.sword(), 50);
 
 let game = JSON.parse(JSON.stringify(initialSave));
 const save = () => (localStorage.save = JSON.stringify(game));
@@ -51,7 +52,6 @@ const load = () => {
 };
 
 // locations management
-
 const changeLocation = newLocation => {
   if (game.location == newLocation) return;
   if (!game.unlocks[newLocation]) return;
@@ -83,6 +83,13 @@ $("#map-canvas").click((e, t) => {
 const quack = () => {
   logMessage(Math.random() < 0.99 ? "quack" : "QUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACK", [200, 200, 0]);
   fight(generateEnemy(["small", "medium", "large"]), generateEnemy(["small", "medium", "large"]));
+  
+  // inventory testing
+  let rngsus = Math.random();
+  if (rngsus < 0.25) game.inventory.addItem(new ItemList.coin(Math.floor(Math.random() * 1434)));
+  else if (rngsus < 0.5) game.inventory.addItem(new ItemList.stick());
+  else if (rngsus < 0.75) game.inventory.addItem(new ItemList.knife());
+  else game.inventory.addItem(new ItemList.sword());
 };
 $("#quack").click(quack);
 
@@ -95,9 +102,12 @@ const update = (() => {
 
     game.cooldowns.explore = Math.max(game.cooldowns.explore - delta, 0);
     $("#explorebtn").html(formatCooldown(game.cooldowns.explore, "explore"))
-    if(game.cooldowns.explore == 0){
+    if (game.cooldowns.explore == 0){
       $("#explorebtn")[0].classList.remove("on-cooldown");
     }
+
+    if (game.unlocks.shop && game.location == "grocery_store") $("#shop").css("display", "block");
+    else $("#shop").css("display", "none");
     updateMap();
   };
 })();
@@ -105,9 +115,14 @@ const update = (() => {
 const init = () => {
   /* Starts the delta time, auto-save, and other initial content */
   load();
+  // let stack = game.inventory.stackableItems, unstack = game.inventory.unstackableItems;
+  game.inventory = cloneObject(game.inventory, Inventory);
+  // game.inventory.setStackable(stack);
+  // game.inventory.setUnstackable(unstack);
   setInterval(save, 10000); // saves every 10 seconds
 
-  renderInventory(game);
+  console.log(game);
+  game.inventory.renderInventory();
   setInterval(update, 100); // every tick is 100 ms (0.1 seconds)
 
   if (game.exploration.home == 0) {
@@ -117,6 +132,7 @@ const init = () => {
 
   updateExplorationProgress(game);
   if (game.unlocks.map) $("#explprgs").css("display", "block");
+  if (game.unlocks.shop && game.location == "grocery_store") $("#shop").css("display", "block");
 
   fight(generateEnemy(["small", "medium", "large"]), generateEnemy(["small", "medium", "large"]));
 

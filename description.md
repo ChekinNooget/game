@@ -2,8 +2,12 @@
 - [ ] Compile the task list
 - [x] Fix some bugs
 - [x] Create message log
-- [ ] Finish combat system
+- [x] Finish combat system
 - [ ] Create other utility methods
+- [ ] inventory
+- [ ] optimize inventory ui
+- [ ] loot drops
+- [ ] finish exploration / reorganize exploration code
 
 ## Game Description / Ideas
 you wake up in your house

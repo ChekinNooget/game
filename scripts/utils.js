@@ -31,6 +31,8 @@ export const clearLog = () => {
   logMessage("message log cleared", logColors.special);
 };
 
+export const cloneObject = (obj, func) => new (Function.prototype.bind.apply(func, [null].concat(func.params).map(arg => arg == null ? null : obj[arg])));
+
 export const mergeObjects = (obj1, obj2) => {
   for (let key in obj2) {
     if (obj1[key] == undefined) {
