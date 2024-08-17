@@ -57,7 +57,6 @@ const load = () => {
         el.style.opacity = opacity;
     }
   }, 50);
-}
 };
 
 // locations management
