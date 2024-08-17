@@ -12,7 +12,7 @@ const processMessage = (game, message) => {
             if (params[0] == "map") $("#explprgs").css("display", "block");
         } else if (command == "!fight") {
             // if you're reading this pls try to reimplement this in async/await format idk how to (you might also need to change combat.js)
-            let success = fight(new Enemy("player", 100, 5), new Enemy("blueberry buffed for testing", 100, 10), success => {
+            let success = fight(new Enemy("player", 100, 5), new Enemy("blueberry buffed for testing", 50, 5), success => {
                 if (success) {
                     logMessage("You won the fight!", logColors.yay);
                 } else {
