@@ -3,6 +3,17 @@ import data from "../data/locations.json" with {type: "json"};
 import { logColors, logMessage } from "./utils.js";
 import { Enemy, fight } from "./combat.js";
 
+function fightEnemy(enemyname,enemyhealth,enemydamage){
+    let win = fight(new Enemy("player", 100, 5), new Enemy("blueberry buffed for testing", 50, 5), success => {
+        if (success) {
+            logMessage("You won the fight!", logColors.yay);
+        } else {
+            logMessage("You lost the fight; you lost some exploration progress as a result.", logColors.fail);
+            game.exploration[game.location]--;
+        }
+    });
+    return win;
+}
 const processMessage = (game, message) => {
     if (message.charAt(0) == '!') {
         let command = message.split('|')[0], params = message.split('|')[1].split(",");
@@ -12,14 +23,7 @@ const processMessage = (game, message) => {
             if (params[0] == "map") $("#explprgs").css("display", "block");
         } else if (command == "!fight") {
             // if you're reading this pls try to reimplement this in async/await format idk how to (you might also need to change combat.js)
-            let success = fight(new Enemy("player", 100, 5), new Enemy("blueberry buffed for testing", 50, 5), success => {
-                if (success) {
-                    logMessage("You won the fight!", logColors.yay);
-                } else {
-                    logMessage("You lost the fight; you lost some exploration progress as a result.", logColors.fail);
-                    game.exploration[game.location]--;
-                }
-            });
+            let success = fightEnemy(new Enemy("player", 100, 5), new Enemy("blueberry buffed for testing", 50, 5);
         }
     } else {
         logMessage(message, logColors.story);
