@@ -1,16 +1,17 @@
 /* Formats the inventory and appends it to the INVENTORY section */
 
-import { cloneObject } from "./utils.js";
+import { game, cloneObject, mergeObjects } from "./utils.js";
 
 export const Item = class {
-    constructor(name, weight, count) {
-        this.name = name;
-        this.weight = weight;
-        this.count = count;
-        this.stackable = true;
+    constructor(id, name, weight, count, maxCount) {
+        this.id = id != null ? id : (() => {console.log(game.itemId); return game.itemId++;})();
+        this.name = name != null ? name : "item";
+        this.weight = weight != null ? weight : 1;
+        this.count = count != null ? count : 1;
+        this.maxCount = maxCount != null ? maxCount : -1;
         this.type = "item";
     }
-    static params = ["name", "weight", "count"];
+    static params = ["id", "name", "weight", "count", "maxCount"];
 
     deplete(count = 1) {
         if (this.count == -1) return count;
@@ -19,43 +20,60 @@ export const Item = class {
         return depleted;
     }
 
+    onclick(item) {}
+
     replenish(count = 1) {
-        if (!this.stackable) return 0;
-        this.count += count;
-        return count;
+        if (this.maxCount == -1) {
+            if (this.count == -1) return 0;
+            this.count += count;
+            return count;
+        }
+        let replenished = (count == -1 ? this.maxCount - this.count : Math.min(count, this.maxCount - this.count));
+        this.count += replenished;
+        return replenished;
     }
 
-    onclick() {
-        return;
+    static mergeLikeItems(item1, item2) {
+        // note: this method WILL modify both parameters
+        if (item1.type != item2.type) return;
+        let merged = item1.replenish(item2.count);
+        item2.deplete(merged);
     }
 
-    static createItemType(name, weight) {
+    static createItemType(name, weight, maxCount) {
         return class extends Item {
-            constructor(count) {
-                super(name, weight, count);
+            constructor(id, count) {
+                super(id, name, weight, count, maxCount);
                 this.type = name;
             }
-            static params = ["count"];
+            static params = ["id", "count"];
         }
     }
 };
 
 export const Weapon = class extends Item {
-    constructor(name, damage, weight) {
-        super(name, weight, 1);
+    constructor(id, name, damage, weight) {
+        super(id, name, weight, 1, 1);
         this.damage = damage;
-        this.stackable = false;
         this.type = "weapon";
     }
-    static params = ["name", "damage", "weight"];
+    static params = ["id", "name", "damage", "weight"];
+
+    onclick(item) {
+        if (game.equipment.weapon != item.id) {
+            $(`#inv-item-${game.equipment.weapon}`).removeClass("equipped");
+            $(`#inv-item-${item.id}`).addClass("equipped");
+            game.equipment.weapon = item.id;
+        }
+    }
 
     static createWeaponType(name, damage, weight) {
         return class extends Weapon {
-            constructor() {
-                super(name, damage, weight);
+            constructor(id) {
+                super(id, name, damage, weight);
                 this.type = name;
             }
-            static params = [];
+            static params = ["id"];
         }
     }
 };
@@ -63,112 +81,101 @@ export const Weapon = class extends Item {
 export const ItemList = {
     item: Item,
     weapon: Weapon,
-    coin: Item.createItemType("coin", 0),
+    coin: Item.createItemType("coin", 0, 10),
     stick: Weapon.createWeaponType("stick", 5, 5), // found at 15% home progress
     knife: Weapon.createWeaponType("knife", 10, 10), // sold in grocery store
     sword: Weapon.createWeaponType("sword", 20, 15), // idk
 };
 
-function returnInventoryContent(name, amount, func = () => {}) {
+function createInventoryElement(div, item) {
     // Gotta be careful with these... 
-    return `<div class="inv-item" onclick=${func}><span class="inv-item-name">${name.toUpperCase().replace(/[^\w]+/g, "")} - </span><span class="inv-item-amount">${(typeof amount === "number") ? amount : 0}</span></div>`;
+    $(div).append(`<div class="inv-item" id="inv-item-${item.id}"><span class="inv-item-name">${item.name.toUpperCase().replace(/[^\w]+/g, "")} - </span><span class="inv-item-amount">${item.count}</span>${item.price > 0 ? `<span class="inv-item-cost"> - COST: ${item.price}</span>` : ""}</div>`);
+    $(`#inv-item-${item.id}`).on("click", () => item.onclick(item));
+}
+
+function editInventoryElement(item) {
+    $(`#inv-item-${item.id}`).html(`<span class="inv-item-name">${item.name.toUpperCase().replace(/[^\w]+/g, "")} - </span><span class="inv-item-amount">${item.count}</span>${item.cost > 0 ? `<span class="inv-item-cost> - COST: ${cost}</span>` : ""}`);
+}
+
+function deleteInventoryElement(item) {
+    $(`#inv-item-${item.id}`).remove();
 }
 
 export const Inventory = class {
-    constructor(renderId = null, stack = {}, unstack = []) {
-        this.stackableItems = stack;
-        Object.values(this.stackableItems).forEach(item => {if (item.constructor.name == "Object") this.stackableItems[item.name] = cloneObject(item, ItemList[item.type]);});
-        this.unstackableItems = unstack;
-        this.unstackableItems.map(item => item.constructor.name == "Object" ? cloneObject(item, ItemList[item.type]) : item);
+    constructor(items = [], mods = {}) {
+        this.mods = mods;
+        this.items = [];
+        items.forEach(item => this.addItem(item.constructor.name == "Object" ? cloneObject(item, ItemList[item.type]) : item));
         this.totalWeight = 0; // tbd
-        this.renderId = renderId;
+        mergeObjects(mods, {renderDiv: null});
     }
-    /*
-    setStackable(stack) {
-        this.stackableItems = stack;
-        this.stackableItems.map(item => item.constructor.name == "Object" ? cloneObject(item, ItemList[item.type]) : item);
-    }
-    setUnstackable(unstack) {
-        this.unstackableItems = unstack;
-        this.unstackableItems.map(item => item.constructor.name == "Object" ? cloneObject(item, ItemList[item.type]) : item);
-    }
-        */
-    static params = ["renderId", "stackableItems", "unstackableItems"];
+    static params = ["items", "mods"];
 
     get length() {
-        let len = 0;
-        Object.values(this.stackableItems).forEach((item) => {
-            if (item.count) len++;
-        });
-        return len += this.unstackableItems.length;
+        return this.items.length;
     }
+
     get weight() {
         return this.totalWeight;
     }
-    quantityOf(name) {
-        if (this.stackableItems[name] == undefined) return 0;
-        return this.stackableItems[name].count;
-    }
 
-    contains(item) {
-        if (typeof item == "string") {
-            if (this.stackableItems[item] != null && this.stackableItems[item].count) return this.stackableItems[item];
-            for (i in this.unstackableItems) {
-                if (this.unstackableItems[i].name == item) {
-                    return this.unstackableItems[i];
-                }
-            } return null;
-        } else if (item.stackable) {
-            if (this.stackableItems[item.name] == undefined) {
-                return null;
-            } else {
-                return (this.stackableItems[item.name].count >= item.count ? this.stackableItems[item.name] : null);
+    find(type) {
+        if (typeof type == "object") type = type.type;
+        let countedItems = [], totalCount = 0;
+        for (let i in this.items) {
+            if (this.items[i].type == type) {
+                countedItems.push([this.items[i], i]);
+                totalCount += this.items[i].count;
             }
-        } else {
-            for (i in this.unstackableItems) {
-                if (this.unstackableItems[i].name == item.name) {
-                    return this.unstackableItems[i];
-                }
-            } return null;
         }
+        return [countedItems, totalCount];
     }
 
-    addItem(item) {
-        if (item.stackable) {
-            if (this.stackableItems[item.name] == undefined) {
-                this.stackableItems[item.name] = cloneObject(item, ItemList[item.type]);
-            } else {
-                this.stackableItems[item.name].replenish(item.count);
+    findById(id) {
+        for (let i in this.items) {
+            if (this.items[i].id == id) {
+                return [this.items[i], i];
             }
+        }
+        return null;
+    }
+
+    addItem(item, stack = true) {
+        if (stack) {
+            let existing = this.find(item);
+            if (existing[1]) {
+                Item.mergeLikeItems(existing[0][existing[0].length - 1][0], item);
+                editInventoryElement(existing[0][existing[0].length - 1][0]);
+            }
+        }
+        if (item.count) {
+            this.items.push(item);
+            createInventoryElement(this.mods.renderDiv, item);
+        }
+    }
+
+    removeItem(item, strict = false) {
+        if (strict) {
+            let foundItem = this.findById(item.id);
+            if (!foundItem) return false;
+            this.items.splice(foundItem[1], 1);
+            deleteInventoryElement(foundItem[0]);
+            return true;
         } else {
-            this.unstackableItems.push(cloneObject(item, ItemList[item.type]));
+            let existing = this.find(item);
+            if (item.count > existing[1]) return false;
+            let index = existing[0].length - 1;
+            while (item.count) {
+                existing[0][index][0].deplete(item.deplete(existing[0][index][0].count));
+                if (existing[0][index][0].count == 0) {
+                    this.items.splice(existing[0][index][1], 1);
+                    deleteInventoryElement(existing[0][index][0]);
+                } else {
+                    editInventoryElement(existing[0][index][0]);
+                }
+                index--;
+            }
+            return true;
         }
-        this.renderInventory();
-    }
-
-    removeItem(item) {
-        if (typeof item == "object") {
-            if (item.stackable)
-            this.stackableItems[item.name].deplete(item.count);
-        } else if (typeof item == "string") {
-            this.stackableItems[item].deplete(-1);
-        } else if (typeof item == "number") {
-            this.unstackableItems.splice(item, 1);
-        }
-        this.renderInventory();
-    }
-
-    renderInventory() {
-        if (this.renderId == null) return;
-        if ($(this.renderId).css("display") == "none") return;
-        let newHTML = "";
-        Object.values(this.stackableItems).forEach((item) => {
-            if (item.count == 0) return;
-            newHTML += returnInventoryContent(item.name, item.count, item.onclick);
-        });
-        this.unstackableItems.forEach((item) => {
-            newHTML += returnInventoryContent(item.name, 1, item.onclick);
-        });
-        $(this.renderId).html(newHTML);
     }
 }

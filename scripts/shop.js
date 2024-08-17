@@ -1,24 +1,33 @@
 import { Inventory, ItemList } from "./inventory.js";
+import { game, cloneObject } from "./utils.js";
 
 export const Shop = class {
-    constructor() {
-        this.items = new Inventory("#shop-contents");
-        this.prices = {};
+    constructor(name = "", prices = {}) {
+        this.name = name;
+        this.items = new Inventory([], {renderDiv: "#shop-contents"});
+        this.prices = prices;
     }
 
-    addItem(item, price = -1) {
-        this.items.addItem(item);
-        if (this.prices[item.name] == null)
-            this.prices[item.name] = new ItemList.coin(price);
+    getCost(item) {
+        return this.prices[item.type];
     }
 
-    purchaseItem(item, game) {
+    addItem(item) {
+        item.price = this.prices[item.type];
+        item.onclick = (item_) => {
+            groceryShop.purchaseItem(item_);
+        }
+        this.items.addItem(item, false);
+    }
+
+    purchaseItem(item) {
         // okay i don't regret spending so much time on my inventory implementation now
-        item = this.items.contains(item);
         if (item == null) return false;
-        if (!game.inventory.contains(this.prices[item.name])) return false;
-        game.inventory.addItem(item);
-        game.inventory.removeItem(this.prices[item.name]);
-        this.items.removeItem(item);
+        if (game.inventory.find("coin")[1] < item.price) return false;
+        this.items.removeItem(item, true);
+        game.inventory.addItem(cloneObject(item, ItemList[item.type]));
+        game.inventory.removeItem(new ItemList.coin(-1, this.prices[item.name]));
     }
 };
+
+export const groceryShop = new Shop("groceryShop", {"stick": 5, "knife": 15, "sword": 50});

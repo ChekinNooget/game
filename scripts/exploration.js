@@ -3,8 +3,8 @@ import data from "../data/locations.json" with {type: "json"};
 import { logColors, logMessage } from "./utils.js";
 import { Enemy, fight } from "./combat.js";
 
-function fightEnemy(enemyname,enemyhealth,enemydamage){
-    let win = fight(new Enemy("player", 100, 5), new Enemy("blueberry buffed for testing", 50, 5), success => {
+function fightEnemy(game) {
+    let win = fight(new Enemy("player", 100, 5), new Enemy("blueberry buffed for testing", 14, 34), success => {
         if (success) {
             logMessage("You won the fight!", logColors.yay);
         } else {
@@ -23,7 +23,7 @@ const processMessage = (game, message) => {
             if (params[0] == "map") $("#explprgs").css("display", "block");
         } else if (command == "!fight") {
             // if you're reading this pls try to reimplement this in async/await format idk how to (you might also need to change combat.js)
-            let success = fightEnemy(new Enemy("player", 100, 5), new Enemy("blueberry buffed for testing", 50, 5));
+            let success = fightEnemy(game);
         }
     } else {
         logMessage(message, logColors.story);
@@ -31,7 +31,7 @@ const processMessage = (game, message) => {
 }
 
 export const updateExplorationProgress = game => {
-    $("#explprgs").html(`progress: ${Math.floor(game.exploration[game.location] * 100 / data[game.location].max_exploration)}%`);
+    $("#explprgs").html(`progress: ${Math.round(game.exploration[game.location])} (${Math.floor(game.exploration[game.location] * 100 / data[game.location].max_exploration)}%)`);
 }
 
 export const explore = game => {

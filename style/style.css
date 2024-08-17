@@ -36,3 +36,6 @@ body {
 .footer-button:hover {
   background-color: lightskyblue !important;
 }
+.equipped {
+  background-color: cornflowerblue !important;
+}

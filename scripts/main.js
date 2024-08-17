@@ -1,8 +1,8 @@
 import { generateEnemy, fight } from "./combat.js";
-import { logColors, logMessage, clearLog, cloneObject, mergeObjects, formatCooldown } from "./utils.js";
+import { game, save, load, logColors, logMessage, clearLog, cloneObject, mergeObjects, formatCooldown } from "./utils.js";
 import { explore, updateExplorationProgress } from "./exploration.js";
 import { ItemList, Inventory } from "./inventory.js";
-import { Shop } from "./shop.js";
+import { groceryShop } from "./shop.js";
 import Map from "./map.js";
 
 import locationsData from "../data/locations.json" with {type: "json"};
@@ -12,44 +12,6 @@ import locationsData from "../data/locations.json" with {type: "json"};
 // yes, in the update function - it was raising an error
 // This should be coming from something else; const object properties can be reassigned
 // yeah, but it was reassigning the entire variable
-const initialSave = {
-  inventory: new Inventory("#inv-contents"),
-  exploration: {
-    home: 0,
-    grocery_store: 0
-  },
-  unlocks: {
-    map: false,
-    shop: false,
-    home: true,
-    grocery_store: false
-  },
-  cooldowns: {
-    explore: 0
-  },
-  location: "home",
-  time: 0,
-};
-
-const groceryShop = new Shop();
-groceryShop.addItem(new ItemList.knife(), 10);
-groceryShop.addItem(new ItemList.sword(), 50);
-
-let game = JSON.parse(JSON.stringify(initialSave));
-const save = () => (localStorage.save = JSON.stringify(game));
-const load = () => {
-  try {
-    let str = localStorage.save;
-    // I think this error would be covered by JSON.parse(str)?
-    if (str == "[object Object]" || str == "undefined") throw new Error();
-    game = JSON.parse(str);
-    mergeObjects(game, initialSave);
-  } catch (error) {
-    console.log(error);
-    game = JSON.parse(JSON.stringify(initialSave));
-    save();
-  }
-};
 
 // locations management
 const changeLocation = newLocation => {
@@ -82,14 +44,10 @@ $("#map-canvas").click((e, t) => {
 
 const quack = () => {
   logMessage(Math.random() < 0.99 ? "quack" : "QUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACKQUACK", [200, 200, 0]);
-  fight(generateEnemy(["small", "medium", "large"]), generateEnemy(["small", "medium", "large"]));
+  // fight(generateEnemy(["small", "medium", "large"]), generateEnemy(["small", "medium", "large"]));
   
   // inventory testing
-  let rngsus = Math.random();
-  if (rngsus < 0.25) game.inventory.addItem(new ItemList.coin(Math.floor(Math.random() * 1434)));
-  else if (rngsus < 0.5) game.inventory.addItem(new ItemList.stick());
-  else if (rngsus < 0.75) game.inventory.addItem(new ItemList.knife());
-  else game.inventory.addItem(new ItemList.sword());
+  game.inventory.addItem(new ItemList.coin(null, 1));
 };
 $("#quack").click(quack);
 
@@ -112,38 +70,11 @@ const update = (() => {
   };
 })();
 
-const init = () => {
-  /* Starts the delta time, auto-save, and other initial content */
-  load();
-  // let stack = game.inventory.stackableItems, unstack = game.inventory.unstackableItems;
-  game.inventory = cloneObject(game.inventory, Inventory);
-  // game.inventory.setStackable(stack);
-  // game.inventory.setUnstackable(unstack);
-  setInterval(save, 10000); // saves every 10 seconds
-
-  console.log(game);
-  game.inventory.renderInventory();
-  setInterval(update, 100); // every tick is 100 ms (0.1 seconds)
-
-  if (game.exploration.home == 0) {
-    logMessage("You wake up from a terrible dream. You can't recall from your memory where you are, nor any details from your previous life experiences.", logColors.story);
-    logMessage("You open your eyes, and find yourself surrounded in total darkness. Perhaps there might be a light switch if you touch around the walls of the room...", logColors.story); // dabcabcdabcadbaa
-  }
-
-  updateExplorationProgress(game);
-  if (game.unlocks.map) $("#explprgs").css("display", "block");
-  if (game.unlocks.shop && game.location == "grocery_store") $("#shop").css("display", "block");
-
-  fight(generateEnemy(["small", "medium", "large"]), generateEnemy(["small", "medium", "large"]));
-
-  console.log("1434"); // i lost the game
-}; $(document).ready(init);
-
 $("#explorebtn").click(() => {
   if (game.cooldowns.explore == 0) {
     explore(game);
     update();
-    game.cooldowns.explore = 1500;
+    game.cooldowns.explore = 2500;
     console.log($("#explorebtn")[0].classList)
     $("#explorebtn")[0].classList.add("on-cooldown");
   }
@@ -160,10 +91,9 @@ $("#savebtn").click(() => {
 $("#importbtn").click(() => {
   try {
     let newSave = prompt("copy your save here (warning: this will override your current progress)");
-    let newGame = JSON.parse(newSave);
-    game = JSON.parse(JSON.stringify(newGame));
-    mergeObjects(game, initialSave);
-    logMessage("save successfully imported", logColors.special);
+    game = JSON.parse(newSave);
+    save();
+    location.reload();
   } catch (error) {
     logMessage("import failed", logColors.fail);
   }
@@ -177,8 +107,33 @@ $("#exportbtn").click(() => {
 $("#resetbtn").click(() => {
   let yes = prompt("are you sure you want to do this? type 'yes' to confirm");
   if (yes == "yes") {
-    game = JSON.parse(JSON.stringify(initialSave));
-    save();
+    localStorage.removeItem("save");
     location.reload();
   }
 });
+
+const init = () => {
+  /* Starts the delta time, auto-save, and other initial content */
+  load();
+  game.inventory = cloneObject(game.inventory, Inventory);
+
+  setInterval(save, 10000); // saves every 10 seconds
+  setInterval(update, 100); // every tick is 100 ms (0.1 seconds)
+
+  if (game.exploration.home == 0) {
+    logMessage("You wake up from a terrible dream. You can't recall from your memory where you are, nor any details from your previous life experiences.", logColors.story);
+    logMessage("You open your eyes, and find yourself surrounded in total darkness. Perhaps there might be a light switch if you touch around the walls of the room...", logColors.story); // dabcabcdabcadbaa
+  }
+
+  updateExplorationProgress(game);
+  if (game.unlocks.map) $("#explprgs").css("display", "block");
+  if (game.unlocks.shop && game.location == "grocery_store") $("#shop").css("display", "block");
+
+  fight(generateEnemy(["small", "medium", "large"]), generateEnemy(["small", "medium", "large"]));
+
+  groceryShop.addItem(new ItemList.stick());
+  groceryShop.addItem(new ItemList.knife());
+  groceryShop.addItem(new ItemList.sword());
+
+  console.log("1434"); // i lost the game
+}; $(document).ready(init);

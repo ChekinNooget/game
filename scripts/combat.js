@@ -61,7 +61,6 @@ export const fight = (enemy1, enemy2, then = (arg => {})) => {
     clearTimeout(timeoutIds[1]);
   }
   let attack = (e1, e2, timeoutIndex) => setTimeout(() => {
-    console.log(e1.name);
     e2.takeDamage(e1.damage);
     updateMockBattle(enemy1, enemy2);
     if (!e2.alive) {
@@ -71,7 +70,7 @@ export const fight = (enemy1, enemy2, then = (arg => {})) => {
       return;
     }
     timeoutIds[timeoutIndex] = attack(e1, e2, timeoutIndex);
-  }, Math.floor(Math.random() * 201) /*+ 900*/);
+  }, Math.floor(Math.random() * 201) + 900);
 
   timeoutIds = [attack(enemy1, enemy2, 0), attack(enemy2, enemy1, 1)];
 }
