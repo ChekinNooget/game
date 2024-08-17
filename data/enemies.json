@@ -60,8 +60,8 @@
         "type": "large"
     }
     "thief": {
-        "health": 100
-        "damage": 25
+        "health": 100,
+        "damage": 25,
         "type": "large"
     }
 }
