@@ -7,8 +7,10 @@
             "3": "You climb up the staircase, and was immediately greeted by a dining table with plates and eating utensils already placed above it. Conveniently, your stomach begins to growl. If only if there was something to eat...",
             "4": "You discover a fridge, only to find with disappointment that it is completely empty. You stand for a while to wonder what type of home owners don't keep their fridge occupied, but another growl from your stomach interrupts your thought.",
             "5": ["!unlock|map", "!unlock|grocery_store", "After some more exploring around this house, you find its front door. You open the door, and see a grocery store just some twenty meters away from your location. Maybe you could buy some groceries over there..."],
-            "10": "After some more exploring, you slowly realize that this is your own house. A few memories return to your mind, though they are no more than (tbd).",
-            "100": "You have fully explored your house - every corner, every space beneath every bed in every room. this isn't finished pls don't yell at me for my horrendous writing"
+            "10": "After some more exploring, you slowly realize that this is your own house. A few memories return to your mind, but so much more is just missing, and you can't figure out exactly what.",
+            "15": "You explore some more and find the bathroom.", 
+            "20": "You find your bedroom. That would be a good place to rest when you get tired.",
+            "100": "You have fully explored your house - every corner, every space beneath every bed in every room. You wonder why you spent all your time on doing that."
         },
         "x": 10,
         "y": 10
