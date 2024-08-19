@@ -1,10 +1,9 @@
-/*export default class SaveCodeGeneration(stringified){
-    data = stringified.parse()
-    code = ""
+let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+export default function SaveCodeGeneration(stringified){
+    let data = stringified.parse();
+    let code = "";
     for (var key in data) {
-        code.concat(data[key])
+        code.concat(data[key]+alphabet[key]);
     }
 }
 
-commenting this out until someone can figure out the errors
-*/
