@@ -68,14 +68,14 @@
 }
 .layout-item {
   margin: 0px 9px;
-  padding: 5px 0px;
+  padding: 3px 0px;
   line-height: 1.4;
   text-align: center;
 }
 #stats {
   height: 20%;
 }
-#interface {
+#middle-ui-cont {
   height: 50%;
   margin: 20px 10px;
 }
@@ -84,4 +84,19 @@
 }
 .footer-button {
   padding: 4px;
+}
+
+/*for tabbing between different menu options*/
+.tab-options {
+  display: flex;
+  justify-content: space-around;
+  margin: -5px -2px;
+  border: 1px black solid;
+}
+.tab-options > div {
+  border: 1px black solid;
+  width: 100%;
+}
+.tab-selected {
+  background-color: aqua;
 }

@@ -8,7 +8,7 @@ body {
 }
 #inv,
 #stats,
-#interface,
+#middle-ui-cont,
 #actions,
 #map {
   border: 2px solid lightskyblue;

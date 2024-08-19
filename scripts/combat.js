@@ -70,7 +70,7 @@ export const fight = (enemy1, enemy2, then = (arg => {})) => {
       return;
     }
     timeoutIds[timeoutIndex] = attack(e1, e2, timeoutIndex);
-  }, Math.floor(Math.random() * 201) + 900);
+  }, Math.floor(Math.random() * 401) + 800);
 
   timeoutIds = [attack(enemy1, enemy2, 0), attack(enemy2, enemy1, 1)];
 }

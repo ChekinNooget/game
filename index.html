@@ -6,50 +6,69 @@
     <meta name="description" content="you just lost" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="scripts/main.js" type="module"></script>
+    <script src="scripts/menu.js" type="module"></script>
     <link rel="stylesheet" href="style/style.css" />
     <link rel="stylesheet" href="style/container-layout.css" />
     <link rel="stylesheet" href="style/button.css" />
   </head>
   <body>
+    <!--title-->
     <h1 id="title"><b>do we still need a game title</b></h1>
+    <!--container for all main ui on screen-->
     <div id="ui-cont1">
+      <!--inventory/left sidebar-->
       <div id="ui-inventory">
         <div class="layout-item" id="inv">
           <div id="inv-heading">INVENTORY</div>
           <div id="inv-contents"></div>
         </div>
-        <div class="layout-item" id="shop" style="display: none">
-          <div id="shop-heading">SHOP</div>
-          <div id="shop-contents"></div>
-        </div>
       </div>
-
+      <!--container for middle ui boxes-->
       <div id="ui-cont2">
+        <!--stats on top-->
         <div class="layout-item" id="stats">
           <p>STATS</p>
           <p id="explprgs" style="display: none">progress: 0%</p>
-        </div>
-        <div class="layout-item" id="interface">
-          <p>INTERFACE</p>
           <div id="mockbattle">
             <p id="enemy1">placeholder</p>
             <p>vs</p>
             <p id="enemy2">placeholder</p>
           </div>
         </div>
+        <!--middle box with interface-->
+        <!--if you want to add a new tab, name id of the actual tab "XXX-tab",-->
+        <!--and the id of the tab window "XXX", otherwise it will not work-->
+        <div class="layout-item" id="middle-ui-cont">
+          <div class="tab-options">
+            <div class="tab" id="interface-tab">INTERFACE</div>
+            <div class="tab" id="shop-tab">SHOP</div>
+          </div>
+          <div class="layout-item tab-item" id="interface" style="display: none">
+            <div id="interface-heading">interface</div>
+            <div id="interface-contents"></div>
+          </div>
+          <div class="layout-item tab-item" id="shop" style="display: none">
+            <div id="shop-heading">shop</div>
+            <div id="shop-contents"></div>
+          </div>
+        </div>
+        <!--bottom middle box-->
         <div id="ui-cont3">
+          <!--actions, on the left-->
           <div class="layout-item" id="actions">
             <p>ACTIONS</p>
             <div>
               <button id="explorebtn" class="action-btn" type="button">explore</button>
             </div>
           </div>
+          <!--map on the right :3-->
           <div class="layout-item" id="map">
             <p>MAP</p>
             <canvas id="map-canvas" width="200" height="200"></canvas>
           </div>
         </div>
       </div>
+      <!--message log, right sidebar-->
       <div id="ui-sidebar">
         <div class="layout-item" id="inv">
           <h3 id="msglog-header">Message Log</h3>
@@ -57,6 +76,7 @@
         </div>
       </div>
     </div>
+    <!--footer with settings and such-->
     <div id="ui-footer">
       <button class="footer-button" id="savebtn" type="button">save</button>
       <button class="footer-button" id="importbtn" type="button">import</button>

@@ -3,9 +3,13 @@ import { game, save, load, logColors, logMessage, clearLog, cloneObject, mergeOb
 import { explore, updateExplorationProgress } from "./exploration.js";
 import { ItemList, Inventory } from "./inventory.js";
 import { groceryShop } from "./shop.js";
+import { updateSelectedTab } from "./menu.js"
+//import { menu } from "./menu.js";
 import Map from "./map.js";
 
 import locationsData from "../data/locations.json" with {type: "json"};
+
+//import SaveCodeGeneration from "./save.js"; work on this someone
 
 /* Initializes the game */
 // Will "game" be reassigned somewhere?
@@ -64,14 +68,15 @@ const update = (() => {
       $("#explorebtn")[0].classList.remove("on-cooldown");
     }
 
-    if (game.unlocks.shop && game.location == "grocery_store") $("#shop").css("display", "block");
-    else $("#shop").css("display", "none");
+    if (game.unlocks.shop && game.location == "grocery_store") $("#shop-tab").css("display", "block");
+    else $("#shop-tab").css("display", "none");
     updateMap();
+    updateSelectedTab()
   };
 })();
 
 $("#explorebtn").click(() => {
-  if (game.cooldowns.explore == 0) {
+  if (game.cooldowns.explore == 0 && globalVars.occupied == 0) {
     explore(game);
     update();
     game.cooldowns.explore = 2500;
