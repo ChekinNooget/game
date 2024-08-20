@@ -1,6 +1,9 @@
 var allTabs = [];
 var tabs = [];
-addTabListeners();
+window.onload = function () {
+  //onload so that it waits for the tab windows to load before pressing a tab
+  addTabListeners();
+};
 
 //ERROR: all tab items show initailly idky why someone fixz it im going t ose lpp gbye
 
