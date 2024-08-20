@@ -5,8 +5,6 @@ window.onload = function () {
   addTabListeners();
 };
 
-//ERROR: all tab items show initailly idky why someone fixz it im going t ose lpp gbye
-
 //THEORETICALLY, this should work for multiple tab groups. however i have not tested that,
 //and the only tab group we have right now is the interface/shop
 //so
