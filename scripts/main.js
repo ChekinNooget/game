@@ -76,7 +76,7 @@ const update = (() => {
 })();
 
 $("#explorebtn").click(() => {
-  if (game.cooldowns.explore == 0 && globalVars.occupied == 0) {
+  if (game.cooldowns.explore == 0/* && globalVars.occupied == 0*/) {
     explore(game);
     update();
     game.cooldowns.explore = 2500;
